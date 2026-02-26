@@ -1,0 +1,32 @@
+---
+title: :nth-child() recipes
+---
+
+## Useful CSS :nth-child Recipes
+
+The CSS *:nth-child* pseudo-class selector offers an incredibly flexible method for targeting elements within a container. It can accept an integer as a parameter to select a specific child, or a formula in the format of *an+b* to select a repeating pattern of children.
+
+Here are a few practical *:nth-child* recipes:
+
+
+1. **Targeting Specific Elements**
+	- Let’s assume :nth-child(3) is our selector.
+	- Elements: ☐ ☐ ☑ ☐ ☐ ☐
+2. **Targeting Even or Odd Elements**
+	- With :nth-child(even):
+	- Elements: ☐ ☑ ☐ ☑ ☐ ☑
+	- With :nth-child(odd):
+	- Elements: ☑ ☐ ☑ ☐ ☑ ☐
+3. **Targeting a Pattern of Elements**
+	- For :nth-child(4n+1), targeting every fourth element starting from the first one.
+	- Elements: ☑ ☐ ☐ ☐ ☑ ☐ ☐ ☐
+4. **Targeting Last Element**
+	- Using :last-child:
+	- Elements: ☐ ☐ ☐ ☐ ☐ ☑
+5. **Negation Pseudo-class**
+	- For :not(:nth-child(2)), all children except the second one are selected.
+	- Elements: ☑ ☐ ☑ ☑ ☑ ☑
+
+	​
+
+👉 Remember: CSS counts elements starting from 1, not 0.

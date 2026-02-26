@@ -1,0 +1,35 @@
+---
+title: Aspect ratio
+---
+
+### Aspect ratio with CSS
+
+Maintaining aspect ratio in a web design layout is especially useful when it comes to images and videos. The CSS aspect-ratio property easily takes care of this challenge. Let's say we have a photo that we want fixed at a 16:9 aspect ratio. The HTML might look like this:
+
+```html live
+
+<!-- HTML -->
+
+<figure>
+    <img src="/src/content/docs/css-tips/images/example.jpg" alt="demo img"/>
+</figure>
+
+<a href="https://stocksnap.io/photo/pretty-flowers-QLE9FJUPWM">Photo</a> by <a href="https://stocksnap.io/author/freenaturestock">Free Nature Stock</a> on <a href="https://stocksnap.io">StockSnap</a>
+
+
+<!-- CSS -->
+
+ <style>
+    
+    figure {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        overflow: hidden;
+    }
+
+    figure img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+</style>

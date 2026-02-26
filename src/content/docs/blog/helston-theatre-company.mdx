@@ -1,0 +1,35 @@
+---
+title: Helston Theatre Company
+description: Our theatre company website
+date: 2023-07-24
+tags:
+  - Astro
+  - Tailwind CSS
+  - Alpine JS
+  - Internationalization
+---
+
+import { Tabs, TabItem, Badge, Icon, Aside } from '/src/components/mdx';
+import ProjectLink from '/src/components/ProjectLink.astro'
+
+<Aside type="tip" title='Host'>
+Deployed with <span><Badge text="Netlify"  variant='note'/></span>
+</Aside>
+
+  <Tabs>
+    <TabItem label='Website'>
+      <ProjectLink
+        title="Helston Theatre Company"
+        href="https://www.helstontheatrecompany.co.uk/"
+        description="https://www.helstontheatrecompany.co.uk/"
+        target="_blank"/>
+    </TabItem>
+    <TabItem label="Repo">
+    <ProjectLink
+      title="Helston Theatre Company"
+      href="https://github.com/Konstantine1307/helstontheatrecompany.git"
+      description="https://github.com/Konstantine1307/helstontheatrecompany.git"
+        target="_blank"/>
+     </TabItem>
+   </Tabs>
+  

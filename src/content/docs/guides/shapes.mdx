@@ -1,0 +1,333 @@
+---
+title: Shapes
+description: A guide in my new Starlight docs site.
+---
+
+This guide for shapes in CSS comes from an article published by Alvaro Montoro in [Level Up Coding](https://levelup.gitconnected.com/).
+
+## Rectangle
+
+Initially, everything is a rectangle in HTML. So, a rectangle is simple to draw; specify a width and a height. If that doesn’t work, you may use an element with an inline display, switch to a block or inline-block element, and you should be fine.
+
+```html live
+
+  <div class="rectangle">
+  </div>
+
+  <style>
+    .rectangle {
+        width: 300px;
+        height: 150px;
+        background:orange;
+    }
+  </style>
+```
+
+## Square
+A square is a rectangle where the width and the height have the same value. We could take the rectangle code and change the height to have the same value as the width.
+
+And that would work, but… If we want to change the size of our square, we'll need to update two values each time. It's not a big problem, but in CSS, we have the [`aspect-ratio`](https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio) property that allows us to specify the relation between width and height. Setting a value of `1` or `1/1` will also result in a square with the same lines of code, but now we only need to update one line of code to resize it:
+
+```html live
+  <div class="square">
+  </div>
+
+  <style>
+  .square {
+    width: 200px;
+    aspect-ratio: 1/1;
+    background:orange;
+  }
+  </style>
+```
+
+## Circle
+Starting from a square, we need to set a rounded shape. We achieve that by using [`border-radius`](https://developer.mozilla.org/en-US/docs/Web/CSS/border-radius) and assigning it to a considerable percentage value (50% or higher will do).
+
+```html live
+  <div class="circle">
+  </div>
+
+  <style>
+    .circle {
+        width: 200px;
+        aspect-ratio: 1;
+        background:orange;
+        border-radius: 50%;
+    }
+  </style>
+```
+
+## Ellipse
+
+An ellipse is a rounded shape like a circle, but instead of a square, it's based on a rectangle. (There's a more accurate and technical definition of an ellipse, but I'll settle for this one for now.) So we'll add the `border-radius` property like in the circle, but to a rectangle instead of a square.
+
+```html live
+  <div class="ellipse">
+  </div>
+
+  <style>
+    .ellipse {
+        width: 200px;
+        height: 300px;
+        background:orange;
+        border-radius: 50%;
+    }
+
+/* Or using aspect-ratio */
+    .ellipse {
+        width: 200px;
+        aspect-ratio: 3/4;
+        background:orange;
+        border-radius: 50%;
+    }
+  </style>
+```
+
+## Oval/Ovoid
+
+An oval and an ellipse are not the same. There are some technical definitions of interior circles crossing each other or not, but for simplicity, we'll consider that an oval resembles an egg. We achieve this shape by **using both values of the `border-radius` property**. Yes, there are two sets of up to 4 values each: horizontal radii then vertical radii separated by a forward slash (/).
+
+We'll set the horizontal radii to `100%`, then specify larger vertical radii values for the top corners and smaller values for the bottom corners. Something like this:
+
+```html live
+  <div class="oval">
+  </div>
+
+  <style>
+
+    .oval {
+        width: 200px;
+        height: 300px;
+        background:orange;
+        border-radius: 100% / 120% 120% 75% 75%;
+    }
+  </style>
+```
+
+## Bell
+
+A bell is an exaggerated ovoid, where one side is long and rounded, and the other is flat (although still with a soft curve). To obtain this shape, take an oval and make the large values larger and the small values smaller.
+
+If you create CSS Art, this shape can be convenient for bodies and even faces (adjusting the radii values slightly).
+
+```html live
+  <div class="bell">
+  </div>
+
+  <style>
+
+    .bell {
+        width: 200px;
+        height: 300px;
+        background:orange;
+        border-radius: 100% / 160% 160% 25% 25%;
+    }
+  </style>
+```
+
+## Arch 
+
+A slight variation of the ellipsis and bell, an arch is flat at the bottom and curved at the top. There’s no playing with the values for this one; we can just set the border-radius property to a fixed value
+
+```html live
+  <div class="arch">
+  </div>
+
+  <style>
+
+    .arch {
+        width: 200px;
+        height: 200px;
+        background:orange;
+        border-radius: 50% / 100% 100% 0% 0%;
+    }
+  </style>
+```
+
+## Eye 
+
+The first shape of the three that require a slight rotation. We'll start from a square and then set the border radius for two opposite corners while leaving the other two corners at zero. I always start from the top left corner and [add a 45-degree rotation](https://developer.mozilla.org/en-US/docs/Web/CSS/rotate), but you could pick any other corner and adjust the rotation accordingly.
+
+You can use the `rotate: 45deg` property or also `transform: rotate(45deg)`. Either way will work. As for the border-radius, the higher the value, the softer the eye curvature will be (duplicate values to allow one side to be taller than the other: `80% 0 100% 0`.)
+
+```html live
+  <div class="eye">
+  </div>
+
+  <style>
+
+    .eye {
+        width: 200px;
+        aspect-ratio: 1;
+        background:orange;
+        rotate: 45deg;
+        border-radius: 80% 0;
+    }
+  </style>
+```
+
+## Tear 
+
+the tear shape is a variation of the eye shape. Same code, just changing the border-radius: max out three of the radii to get a circular shape and leave the last corner radius to zero so it ends in a point.
+
+```html live
+  <div class="tear">
+  </div>
+
+  <style>
+
+    .tear {
+        width: 200px;
+        aspect-ratio: 1;
+        margin-top: 40px;
+        background:orange;
+        rotate: 45deg;
+        border-radius: 0 50% 50% 50%;
+    }
+  </style>
+```
+
+## Heart 
+
+Drawing a heart is slightly different from the previous shapes, as it will use the element and **both [`::before`](https://developer.mozilla.org/en-US/docs/Web/CSS/::before) and [`::after`](https://developer.mozilla.org/en-US/docs/Web/CSS/::after) pseudo-elements**. We start from a square, rotate it 45 degrees, and then add the pseudo-elements as circles (see above). We translate one pseudo horizontally and the other vertically (which will look diagonally for both as the element is rotated), and it’s done. The code may seem “complicated,” but the idea is simple.
+
+```html live
+  <div class="heart">
+  </div>
+
+  <style>
+    .heart {
+        width: 100px;
+        aspect-ratio: 1;
+        margin: 30px 0 20px;
+        background:orange;
+        rotate: 45deg;
+        position: relative;
+    }
+
+    .heart::before,
+    .heart::after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        aspect-ratio: 1;
+        border-radius: 50%;
+        background: inherit;
+        translate: -50% 0;
+    }
+
+    .heart::after {
+        translate: 0 -50%;
+    }
+  </style>
+```
+
+## Triangle 
+
+Many online articles discuss how to draw a triangle using borders, a height/width of zero, and some transparent colors. I would highly discourage that approach. While it works, it is old-fashioned and can be a hassle if we want flexibility and responsiveness.
+
+Instead, I recommend **using [`clip-path`](https://developer.mozilla.org/en-US/docs/Web/CSS/clip-path) for drawing a triangle** –and some of the following polygonal shapes. With clip-path, we specify a path (it can be using polygons, an image, an actual path, etc.) that defines a shape. Everything outside of that shape will be clipped. In the case of a triangle, we only need 3 points.
+
+```html live
+  <div class="triangle">
+  </div>
+
+  <style>
+
+    .triangle {
+        width: 200px;
+        height: 200px;
+        background:orange;
+        clip-path: polygon(50% 0, 100% 100%, 0 100%);
+    }
+  </style>
+```
+## Trapezoid 
+
+Another polygon. Which are simple to make using the `polygon()` function in `clip-path`. In this case, we'll start from a rectangle or a square, and we'll need four points: the bottom ones will be in the corners, and the top will be slightly inside. And we are done
+
+```html live
+  <div class="trapezoid">
+  </div>
+
+  <style>
+
+    .trapezoid {
+        width: 200px;
+        height: 150px;
+        background:orange;
+        clip-path: polygon(20% 0, 80% 0, 100% 100%, 0 100%);
+    }
+  </style>
+```
+
+## Octagon 
+
+The good news is that the `clip-path/polygon()` method can be extrapolated to any polygonal shape.
+
+```html live
+  <div class="octagon">
+  </div>
+
+  <style>
+
+    .octagon {
+        width: 200px;
+        height: 200px;
+        background:orange;
+        clip-path: polygon(16.66% 16.66%, 50% 0, 83.33% 16.66%, 100% 50%, 83.33% 83.33%, 50% 100%, 16.66% 83.33%, 0 50%);
+    }
+  </style>
+```
+
+## Spark 
+
+A spark is an octagon variation. The only difference is where four of the points will be located. While in the octagon, they are towards the outside; in the spark, they will be towards the inside (imagine a rotated square).
+
+```html live
+  <div class="spark">
+  </div>
+
+  <style>
+    .spark {
+        width: 300px;
+        aspect-ratio: 1;
+        background:orange;
+        clip-path: polygon(40% 40%, 50% 0, 60% 40%, 100% 50%,
+                     60% 60%, 50% 100%, 40% 60%, 0 50%);
+    }
+  </style>
+```
+
+## Moon 
+
+The moon can take many forms. By a moon shape, we mean a crescent (or decrescent). We can quickly achieve this by starting with the circular shape and applying a [`box-shadow`](https://developer.mozilla.org/en-US/docs/Web/CSS/box-shadow). Box shadows allow five values: horizontal translation, vertical translation, fuzziness (optional), scale (optional), and color (optional, text color by default). Depending on whether we want a crescent or a decrescent, we'll add a big shadow to the right or left.
+
+```css
+    .moon {
+        width: 300px;
+        aspect-ratio: 1;
+        background-black;
+        border-radius: 50%;
+        box-shadow: -90px 0 0 80px black;
+    }
+```
+
+As an alternative implementation, I recommend [using masks instead of shadows](https://developer.mozilla.org/en-US/docs/Web/CSS/mask). This is because with the mask implementation, the drawing of the moon is clearly defined within the flow of the page, as it matches the size of the element used to draw it (we could use inset shadows to avoid this problem). Plus, masks provide more flexibility than shadows.
+
+```html live
+  <div class="moon">
+  </div>
+
+  <style>
+    .moon {
+        width: 300px;
+        aspect-ratio: 1;
+        background:orange;
+        border-radius: 50%;
+        -webkit-mask: radial-gradient(circle at 75% 50%, #0000 33%, #000 0);
+}
+
+  </style>
+  ```

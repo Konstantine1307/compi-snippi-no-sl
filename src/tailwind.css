@@ -1,0 +1,205 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+Add additional Tailwind styles to this file, for example with @layer:
+https://tailwindcss.com/docs/adding-custom-styles#using-css-and-layer
+*/
+
+@layer base {
+  :root {
+    --primary: rgb(0, 123, 255);
+    --secondary: #6c757d;
+    --success: #28a745;
+    --danger: #dc3545;
+    --warning: #ffc107;
+    --info: #17a2b8;
+    --light: #f8f9fa;
+    --dark: #343a40;
+    --color-primary: 0 123 255;
+    --color-secondary: 111 114 185;
+    --sl-content-width: 55rem;
+    --sl-container-min-width: var(--sl-content-width);
+
+	--sl-font-system: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+		'Noto Sans', 'Liberation Sans', sans-serif;
+	--sl-font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+
+	--sl-text-base: 1rem;
+	--sl-text-sm: 0.875rem;
+	--sl-text-lg: 1.125rem;
+	--sl-text-xl: 1.25rem;
+	--sl-text-2xl: 1.5rem;
+	--sl-text-3xl: 1.875rem;
+	--sl-text-4xl: 2.25rem;
+
+	--sl-line-height-body: 1.7;
+	--sl-line-height-headings: 1.2;
+	--sl-font-weight-semibold: 600;
+	--sl-font-weight-bold: 800;
+
+	--sl-radius-sm: 0.375rem;
+	--sl-radius-md: 0.75rem;
+	--sl-shadow-sm: 0 1px 2px rgba(2, 6, 23, 0.08), 0 1px 1px rgba(2, 6, 23, 0.06);
+
+	--sl-space-xs: 0.25rem;
+	--sl-space-sm: 0.5rem;
+	--sl-space-md: 0.75rem;
+	--sl-space-lg: 1rem;
+	--sl-space-xl: 1.5rem;
+
+	--sl-color-bg: #ffffff;
+	--sl-color-text: #0f172a;
+	--sl-color-text-secondary: #475569;
+	--sl-color-text-accent: #4f46e5;
+	--sl-color-accent: #4f46e5;
+	--sl-color-hairline: rgba(148, 163, 184, 0.35);
+	--sl-color-hairline-shade: rgba(148, 163, 184, 0.55);
+	--sl-color-bg-inline-code: rgba(241, 245, 249, 1);
+
+	--sl-color-white: #0f172a;
+	--sl-color-gray-2: rgba(100, 116, 139, 0.75);
+	--sl-color-gray-3: rgba(71, 85, 105, 1);
+	--sl-color-gray-5: rgba(148, 163, 184, 0.35);
+	--sl-color-gray-6: rgba(241, 245, 249, 1);
+	--sl-color-gray-7: rgba(226, 232, 240, 1);
+  }
+
+	:root[data-theme='dark'] {
+		--sl-color-bg: #020617;
+		--sl-color-text: #e2e8f0;
+		--sl-color-text-secondary: #94a3b8;
+		--sl-color-text-accent: #818cf8;
+		--sl-color-accent: #818cf8;
+		--sl-color-hairline: rgba(148, 163, 184, 0.25);
+		--sl-color-hairline-shade: rgba(148, 163, 184, 0.35);
+		--sl-color-bg-inline-code: rgba(30, 41, 59, 1);
+
+		--sl-color-white: #ffffff;
+		--sl-color-gray-2: rgba(226, 232, 240, 0.9);
+		--sl-color-gray-3: rgba(148, 163, 184, 1);
+		--sl-color-gray-5: rgba(148, 163, 184, 0.25);
+		--sl-color-gray-6: rgba(30, 41, 59, 1);
+		--sl-color-gray-7: rgba(15, 23, 42, 1);
+  }
+}
+
+
+/* Base Typography */
+body {
+  font-family: var(--sl-font-system);
+  font-size: var(--sl-text-base);
+  line-height: var(--sl-line-height-body);
+  color: var(--sl-color-text);
+  background-color: var(--sl-color-bg);
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: var(--sl-font-weight-semibold);
+  line-height: var(--sl-line-height-headings);
+  color: var(--sl-color-text);
+  margin-top: var(--sl-space-xl);
+  margin-bottom: var(--sl-space-md);
+}
+
+h1 {
+  font-size: var(--sl-text-4xl);
+  font-weight: var(--sl-font-weight-bold);
+  margin-top: 0;
+}
+
+h2 {
+  font-size: var(--sl-text-3xl);
+  font-weight: var(--sl-font-weight-bold);
+}
+
+h3 {
+  font-size: var(--sl-text-2xl);
+}
+
+h4 {
+  font-size: var(--sl-text-xl);
+}
+
+h5 {
+  font-size: var(--sl-text-lg);
+}
+
+h6 {
+  font-size: var(--sl-text-base);
+}
+
+/* Paragraphs and Text */
+p {
+  margin-bottom: var(--sl-space-md);
+}
+
+a {
+  color: var(--sl-color-text-accent);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Code */
+code {
+  font-family: var(--sl-font-mono);
+  font-size: 0.875em;
+  background-color: var(--sl-color-bg-inline-code);
+  padding: 0.125rem 0.25rem;
+  border-radius: var(--sl-radius-sm);
+}
+
+pre {
+  font-family: var(--sl-font-mono);
+  background-color: var(--sl-color-bg-inline-code);
+  padding: var(--sl-space-md);
+  border-radius: var(--sl-radius-md);
+  overflow-x: auto;
+  margin-bottom: var(--sl-space-md);
+}
+
+pre code {
+  background-color: transparent;
+  padding: 0;
+}
+
+/* Blockquotes */
+blockquote {
+  border-left: 4px solid var(--sl-color-hairline-shade);
+  padding-left: var(--sl-space-md);
+  margin: var(--sl-space-lg) 0;
+  color: var(--sl-color-text-secondary);
+}
+
+/* Lists */
+ul, ol {
+  margin-bottom: var(--sl-space-md);
+  padding-left: var(--sl-space-lg);
+}
+
+li {
+  margin-bottom: var(--sl-space-xs);
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: var(--sl-space-md);
+}
+
+th, td {
+  padding: var(--sl-space-sm) var(--sl-space-md);
+  text-align: left;
+  border-bottom: 1px solid var(--sl-color-hairline);
+}
+
+th {
+  font-weight: var(--sl-font-weight-semibold);
+  border-bottom: 2px solid var(--sl-color-hairline-shade);
+}

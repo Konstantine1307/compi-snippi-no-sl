@@ -1,0 +1,338 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Header from '../components/Header.astro';
+type SidebarItem = {
+	label: string;
+	href: string;
+	active?: boolean;
+};
+
+type SidebarGroup = {
+	label: string;
+	open?: boolean;
+	items: SidebarItem[];
+};
+
+type PrevNextItem = {
+	label: string;
+	href: string;
+};
+
+type TocItem = {
+	depth: number;
+	slug: string;
+	text: string;
+};
+
+interface Props {
+	title: string;
+	description?: string;
+	sidebar: SidebarGroup[];
+	toc?: TocItem[];
+	prev?: PrevNextItem;
+	next?: PrevNextItem;
+}
+
+const { title, description, sidebar, toc, prev, next } = Astro.props;
+---
+
+<BaseLayout title={title} description={description}>
+	<Header />
+	<div class="docs-shell">
+			
+			<aside class="sidebar" aria-label="Sidebar">
+				<nav>
+					{sidebar.map((group) => (
+						<details class="sidebar-group" open={group.open}>
+							<summary class="sidebar-title">
+								<span>{group.label}</span>
+								<span class="sidebar-chevron" aria-hidden="true"></span>
+							</summary>
+							<ul class="sidebar-list">
+								{group.items.map((item) => (
+									<li>
+										<a class={item.active ? 'sidebar-link active' : 'sidebar-link'} href={item.href}>
+											{item.label}
+										</a>
+									</li>
+								))}
+							</ul>
+						</details>
+					))}
+				</nav>
+			</aside>
+			<main class="content" id="main">
+				<article class="prose">
+					<slot />
+				</article>
+				{(prev || next) && (
+					<nav class="prev-next" aria-label="Page navigation">
+						{prev ? (
+							<a class="prev-next__card prev-next__card--prev" href={prev.href}>
+								<span class="prev-next__kicker">
+									<span class="prev-next__arrow" aria-hidden="true">←</span>
+									<span>Previous</span>
+								</span>
+								<span class="prev-next__title">{prev.label}</span>
+							</a>
+						) : (
+							<span class="prev-next__spacer" aria-hidden="true" />
+						)}
+						{next ? (
+							<a class="prev-next__card prev-next__card--next" href={next.href}>
+								<span class="prev-next__kicker">
+									<span>Next</span>
+									<span class="prev-next__arrow" aria-hidden="true">→</span>
+								</span>
+								<span class="prev-next__title">{next.label}</span>
+							</a>
+						) : (
+							<span class="prev-next__spacer" aria-hidden="true" />
+						)}
+					</nav>
+				)}
+			</main>
+			<aside class="toc" aria-label="On this page">
+				{toc && toc.length > 0 && (
+					<div class="toc-inner">
+						<div class="toc-title">On this page</div>
+						<ol class="toc-list">
+							{toc
+								.filter((h) => h.depth >= 2 && h.depth <= 3)
+								.map((h) => (
+									<li class={h.depth === 3 ? 'toc-item depth-3' : 'toc-item'}>
+										<a class="toc-link" href={`#${h.slug}`}>{h.text}</a>
+									</li>
+								))}
+						</ol>
+					</div>
+				)}
+			</aside>
+		</div>
+
+</BaseLayout>
+
+<style>
+	.docs-shell {
+		display: grid;
+		grid-template-columns: 280px minmax(0, 1fr) 240px;
+		gap: 2rem;
+		max-width: 1440px;
+		margin: 0 auto;
+		padding: 1.25rem;
+	}
+
+	.sidebar {
+		position: sticky;
+		top: 1rem;
+		align-self: start;
+		max-height: calc(100vh - 2rem);
+		overflow: auto;
+		padding-right: 0.75rem;
+		border-right: 1px solid rgba(148, 163, 184, 0.35);
+	}
+
+	.sidebar-group {
+		margin: 0 0 1.25rem;
+		border: none;
+	}
+
+	.sidebar-title {
+		list-style: none;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		font-size: 1.1rem;
+		font-weight: 700;
+		margin: 0;
+		padding: 0.4rem 0;
+		cursor: pointer;
+		user-select: none;
+	}
+
+	.sidebar-title::-webkit-details-marker {
+		display: none;
+	}
+
+	.sidebar-chevron {
+		width: 0.65rem;
+		height: 0.65rem;
+		border-right: 2px solid rgba(148, 163, 184, 0.95);
+		border-bottom: 2px solid rgba(148, 163, 184, 0.95);
+		transform: rotate(45deg);
+		transition: transform 0.15s ease;
+		margin-left: 0.75rem;
+		flex: 0 0 auto;
+	}
+
+	.sidebar-group[open] > .sidebar-title .sidebar-chevron {
+		transform: rotate(225deg);
+	}
+
+	.sidebar-list {
+		list-style: none;
+		margin: 0;
+		padding: 0.25rem 0 0;
+		display: grid;
+		gap: 0.25rem;
+	}
+
+	.sidebar-link {
+		display: block;
+		padding: 0.4rem 0.75rem;
+		margin-left: 0.2rem;
+		border-radius: 0.4rem;
+		text-decoration: none;
+		color: inherit;
+	}
+
+	.sidebar-link:hover {
+		background: rgba(99, 102, 241, 0.08);
+	}
+
+	.sidebar-link.active {
+		background: rgba(99, 102, 241, 0.16);
+		color: rgb(99, 102, 241);
+		font-weight: 600;
+	}
+
+	.content {
+		min-width: 0;
+	}
+
+	:global(.prose) {
+		width: 100%;
+		max-width: 820px;
+		margin: 0;
+		padding: 0;
+	}
+
+	.prev-next {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 1.25rem;
+		margin-top: 2.25rem;
+	}
+
+	.prev-next__card {
+		display: grid;
+		gap: 0.25rem;
+		padding: 1.25rem;
+		border-radius: 0.9rem;
+		border: 1px solid rgba(148, 163, 184, 0.35);
+		background: rgba(255, 255, 255, 1);
+		box-shadow: 0 1px 2px rgba(2, 6, 23, 0.08);
+		text-decoration: none;
+		color: inherit;
+		min-height: 5.25rem;
+	}
+
+	.prev-next__card:hover {
+		border-color: rgba(99, 102, 241, 0.45);
+		box-shadow: 0 8px 24px rgba(2, 6, 23, 0.08);
+	}
+
+	:global([data-theme='dark']) .prev-next__card {
+		background: rgba(2, 6, 23, 1);
+	}
+
+	.prev-next__kicker {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		font-size: 0.95rem;
+		color: rgba(71, 85, 105, 1);
+	}
+
+	:global([data-theme='dark']) .prev-next__kicker {
+		color: rgba(148, 163, 184, 0.95);
+	}
+
+	.prev-next__title {
+		font-size: 1.25rem;
+		font-weight: 600;
+		line-height: 1.1;
+	}
+
+	.prev-next__card--next {
+		text-align: right;
+		justify-items: end;
+	}
+
+	.prev-next__arrow {
+		font-size: 1.1rem;
+		line-height: 1;
+	}
+
+	.prev-next__spacer {
+		display: block;
+	}
+
+	.toc {
+		position: sticky;
+		top: 1rem;
+		align-self: start;
+		max-height: calc(100vh - 2rem);
+		overflow: auto;
+		padding-left: 0.75rem;
+		border-left: 1px solid rgba(148, 163, 184, 0.35);
+	}
+
+	.toc-inner {
+		font-size: 0.92rem;
+	}
+
+	.toc-title {
+		font-weight: 600;
+		margin-bottom: 0.6rem;
+	}
+
+	.toc-list {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: grid;
+		gap: 0.35rem;
+	}
+
+	.toc-item.depth-3 {
+		padding-left: 0.75rem;
+		opacity: 0.9;
+	}
+
+	.toc-link {
+		text-decoration: none;
+		color: rgba(148, 163, 184, 0.95);
+	}
+
+	.toc-link:hover {
+		color: inherit;
+	}
+
+	@media (max-width: 1024px) {
+		.docs-shell {
+			grid-template-columns: 260px minmax(0, 1fr);
+		}
+		.toc {
+			display: none;
+		}
+	}
+
+	@media (max-width: 768px) {
+		.docs-shell {
+			grid-template-columns: 1fr;
+		}
+		.prev-next {
+			grid-template-columns: 1fr;
+		}
+		.sidebar {
+			position: static;
+			max-height: none;
+			border-right: none;
+			padding-right: 0;
+		}
+		.toc {
+			display: none;
+		}
+	}
+</style>

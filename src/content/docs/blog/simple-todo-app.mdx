@@ -1,0 +1,33 @@
+---
+title: Simple Todo App
+description: Taversy Media tutorial
+date: 2023-07-23
+tags:
+  - HTML
+  - CSS
+  - JavaScript
+---
+import { Tabs, TabItem, Badge, Icon, Aside } from '/src/components/mdx';
+import ProjectLink from '/src/components/ProjectLink.astro'
+
+
+<Aside type="tip" title='Host'>
+Deployed with <span><Badge text="GitHub Pages"  variant='note'/></span>
+</Aside>
+
+<Tabs>
+    <TabItem label='Demo'>
+      <ProjectLink
+        title="Simple todo app"
+        href="https://konstantine1307.github.io/lista-compras/"
+        description="https://konstantine1307.github.io/lista-compras/"
+        target="_blank"/>
+    </TabItem>
+    <TabItem label="Repo">
+    <ProjectLink
+      title="lista-compras"
+      href="https://github.com/Konstantine1307/lista-compras.git"
+      description="https://github.com/Konstantine1307/lista-compras.git"
+      target="_blank"/>
+     </TabItem>
+   </Tabs>

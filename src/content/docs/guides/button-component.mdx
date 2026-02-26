@@ -1,0 +1,199 @@
+---
+title: Button Component
+description: Button componnent with Astro
+---
+
+This Button component is a versatile tool that lets you easily create buttons with consistent styling across your Astro project. By adjusting the props, you can tailor each button to suit your specific design needs.
+
+## Creating and using the `Button` Astro component
+
+import { Tabs, TabItem } from '/src/components/mdx'
+import Button from '/src/components/Button.astro'
+
+
+<Tabs>
+    <TabItem label="Rendered" icon="starlight">
+          <div class="flex flex-wrap items-center justify-center gap-6 not-content">
+    <Button theme='success' size='lg' isfilled isrounded>Button</Button>
+    <Button theme='secondary'>Button</Button>
+    <Button isfilled theme='dark' isrounded size='lg'>Button</Button>
+    <Button isfilled theme='light' isrounded size='lg'>Button</Button>
+    <Button isfilled theme='info' isrounded size='lg'>Button</Button>
+    <Button isfilled theme='warning' isrounded size='lg'>Button</Button>
+    <Button isfilled theme='danger' isrounded size='lg'>Button</Button>
+    <Button isfilled theme='primary' isrounded size='lg'>Button</Button>
+    
+  </div>
+    </TabItem>
+</Tabs>
+
+### 1. Component Overview
+
+The `Button` component is a reusable UI component built in Astro. It allows you to create buttons with various sizes, themes, and styles. This component is highly customizable, supporting different button types, themes, sizes, and other stylistic options like filled backgrounds and rounded corners.
+
+### 2. Creating the 'Button' Component
+
+#### Step 1:Define the Component Props
+In Astro, we can define a component's properties (props) to make it flexible and reusable. The Button component accepts the following props:
+
+```astro
+---
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<'button'> {
+  type?: 'button' | 'submit';          // Specifies the button type, default is 'button'
+  size?: 'sm' | 'md' | 'lg';           // Specifies the button size
+  isfilled?: boolean;                  // Determines if the button should be filled
+  isrounded?: boolean;                 // Determines if the button should have rounded corners
+  theme?:                              // Specifies the button theme (color)
+    | 'primary'
+    | 'secondary'
+    | 'success'
+    | 'danger'
+    | 'warning'
+    | 'info'
+    | 'light'
+    | 'dark';
+  classes?: string;                     // Additional classes for custom styling
+}
+---
+```
+#### Step 2: Define Default Prop Values
+Set default values for the props to make the component easier to use without always specifying all the props:
+
+```astro
+---
+const {
+  type = 'button',                     // Default button type is 'button'
+  size = 'md',                         // Default size is 'md'
+  isfilled,
+  isrounded,
+  theme = 'light',                     // Default theme is 'light'
+  classes,
+  ...rest
+} = Astro.props;
+
+---
+```
+#### Step 3: Define Background and Foreground Colors
+The background and foreground colors are set based on the selected theme:
+
+```astro
+---
+const background = `var(--${theme})`;
+const foreground = theme === 'light' ? 'var(--primary)' : 'var(--light)';
+---
+```
+#### Step 4: Create the Button HTML Structure
+The button element uses the defined props and spreads any additional props passed to it:
+
+```astro 
+<button
+  class:list={[classes, { filled: isfilled }, { rounded: isrounded }]}
+  {type}
+  data-size={size}
+  {...rest}
+>
+  <slot />
+</button>
+```
+
+#### Step 5: Define Button Styles
+The styles are added within a `<style>` block, utilizing CSS custom properties for easy theming:
+
+```astro
+
+<style
+  define:vars={{
+    foreground,
+    background,
+  }}
+>
+  *,
+  *::after,
+  *::before {
+    box-sizing: border-box;
+  }
+
+  .cool {
+    background-color: yellow;
+  }
+  button {
+    /* resets */
+    font: inherit;
+    cursor: pointer;
+
+    /* variables */
+    --bkg: var(--background);
+    --color: var(--foreground);
+
+    /* default styles */
+    display: flex;
+    gap: 0.2em;
+    align-items: center;
+    background-color: var(--light);
+    color: var(--bkg);
+    border: 0.2em solid var(--bkg);
+    padding: 0.2em 1.25em;
+    transition:
+      box-shadow 0.2s cubic-bezier(0.075, 0.82, 0.165, 1),
+      opacity 0.2s cubic-bezier(0.075, 0.82, 0.165, 1),
+      scale 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+  }
+
+  button.filled {
+    background-color: var(--bkg);
+    color: var(--color);
+    border: none;
+  }
+
+  button.rounded {
+    border-radius: 1em;
+  }
+
+  button:focus {
+    outline-color: transparent;
+  }
+
+  button:hover {
+    opacity: 0.8;
+    scale: 1.05;
+  }
+
+  button:focus-visible {
+    box-shadow:
+      0 0 0 0.1em var(--light),
+      0 0 0 0.3em var(--bkg);
+  }
+
+  [data-size='sm'] {
+    font-size: 0.8rem;
+  }
+  [data-size='md'] {
+    font-size: 1.1rem;
+  }
+  [data-size='lg'] {
+    font-size: 1.5rem;
+  }
+</style>
+
+```
+
+### 3. Using the `Button` Component
+
+Once the Button component is created, you can use it within your Astro pages or other components. Here are some examples:
+
+```astro
+---
+import Button from '/src/components/Button.astro'
+---
+<Button theme="success" size="lg" isfilled isrounded>Button</Button>
+<Button theme="secondary">Button</Button>
+<Button isfilled theme="dark" isrounded size="lg">Button</Button>
+<Button isfilled theme="light" isrounded size="lg">Button</Button>
+<Button isfilled theme="info" isrounded size="lg">Button</Button>
+<Button isfilled theme="warning" isrounded size="lg">Button</Button>
+<Button isfilled theme="danger" isrounded size="lg">Button</Button>
+<Button isfilled theme="primary" isrounded size="lg">Button</Button>
+
+```

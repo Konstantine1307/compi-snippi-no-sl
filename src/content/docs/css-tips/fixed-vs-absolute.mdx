@@ -1,0 +1,29 @@
+---
+title: Fixed vs absolute
+---
+
+### Position fixed vs absolute
+
+The main difference between `position: fixed;` and `position: absolute;` in CSS lies in how they are positioned relative to the document or the nearest positioned ancestor.
+
+
+1. `position: fixed;`:
+	- Elements with `position: fixed;` are positioned relative to the viewport (the browser window), regardless of whether the page is scrolled or not.
+	- A fixed-position element is removed from the normal document flow, meaning it doesn't affect the positioning of other elements.
+	- It stays in the same position even when the user scrolls the page.
+	- To specify the position, you can use properties like `top`, `right`, `bottom`, and `left`.
+2. `position: absolute;`:
+	- Elements with `position: absolute;` are positioned relative to their closest positioned ancestor, which is an element that has a position value of `relative`, `absolute`, `fixed`, or `sticky`.
+	- If no positioned ancestor is found, the element is positioned relative to the initial containing block, which is typically the viewport.
+	- An absolutely positioned element is removed from the normal document flow, similar to `position: fixed;`.
+	- It doesn't leave a space in the layout for itself, so other elements may overlap it.
+	- You can use properties like `top`, `right`, `bottom`, and `left` to specify the position.
+
+Here's a summary of the key differences between `position: fixed;` and `position: absolute;`:
+
+
+- `position: fixed;` positions an element relative to the viewport and is unaffected by scrolling, while `position: absolute;` positions an element relative to the nearest positioned ancestor or the initial containing block.
+- Fixed-position elements stay in the same position even when the page is scrolled, while absolutely positioned elements scroll with their closest positioned ancestor.
+- Both positions remove the element from the normal document flow, but absolute positioning can potentially affect the layout by overlapping other elements.
+
+It's important to note that the positioning behavior of `position: fixed;` and `position: absolute;` can be altered by other CSS properties like `z-index` and the presence of transforms or stacking contexts.

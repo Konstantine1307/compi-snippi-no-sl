@@ -1,0 +1,37 @@
+---
+title: Inline block
+---
+
+### Inline block
+
+Inline elements, such as anchor tags (`<a>`), are elements that are displayed on the same line as surrounding text or other inline elements, rather than starting on a new line. By default, inline elements do not have a width or height and do not respect top and bottom margins or padding. However, they do respect left and right margins and padding.
+
+When it comes to setting margins for inline elements, the `margin-top` and `margin-bottom` properties do not work as expected. This means that if you try to add a top or bottom margin to an inline element like an anchor tag, it won't create any space above or below the element.
+
+To overcome this limitation, you can use the `display` property with the value `inline-block`. By setting `display: inline-block` on an element, you make it behave like an inline element while still allowing you to apply properties such as width, height, margins, and padding to it.
+
+When an element has `display: inline-block`, it retains the inline behavior of being placed on the same line as other inline elements, but it also gains the ability to have a width and height. Additionally, you can now set top and bottom margins on the element, and they will work as expected, creating space above and below the element.
+
+Here's an example:
+
+HTML:
+
+```html
+<a href="#" class="my-link">My Link</a>
+```
+
+
+CSS:
+
+```css
+.my-link {
+  display: inline-block;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+```
+
+
+In this example, the anchor tag will be displayed as an inline-block element, allowing you to set top and bottom margins of 10 pixels, which will create space above and below the link.
+
+By using `display: inline-block`, you can control the dimensions and spacing of inline elements like anchor tags, making them more versatile in terms of layout and styling.

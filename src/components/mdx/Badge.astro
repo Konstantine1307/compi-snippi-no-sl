@@ -1,0 +1,28 @@
+---
+interface Props {
+	text?: string;
+	variant?: 'note' | 'tip' | 'caution' | 'danger' | 'default';
+	class?: string;
+}
+
+const { text, variant = 'default', class: className } = Astro.props;
+---
+
+<span class={['mdx-badge', `mdx-badge--${variant}`, className].filter(Boolean).join(' ')}>
+	{text ? text : <slot />}
+</span>
+
+<style>
+	.mdx-badge {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.35rem;
+		padding: 0.1rem 0.5rem;
+		border-radius: 999px;
+		font-size: 0.8rem;
+		font-weight: 600;
+		border: 1px solid var(--sl-color-hairline, rgba(148, 163, 184, 0.35));
+		background: color-mix(in srgb, var(--sl-color-accent, #4f46e5) 8%, transparent);
+		color: var(--sl-color-text, inherit);
+	}
+</style>

@@ -1,0 +1,84 @@
+---
+title: Tabbed content
+---
+
+## Tabbed content
+
+Combining `<label>` and `<input type=”radio”>` can do magic! And all because when you click on a` <label>`, the browser will automatically pass the focus to its associated input. In case with the radio input, that means it will be checked.
+The layout is simple: we create several pairs of input-label elements and the related number of divs for content.
+
+CSS has a native :checked selector for the checked inputs (both radios and checkboxes).
+And thanks to the ~ (tilde), which is officially called the subsequent-sibling combinator, we can toggle visibility of the content blocks. The only requirement is that content divs should be placed AFTER radio inputs.
+
+``` html live
+<section class="tab-div">
+<input type="radio" id="tab1" name="tabs" checked>
+<label for="tab1">Tab 1</label>
+
+<input type="radio" id="tab2" name="tabs">
+<label for="tab2">Tab 2</label>
+
+<input type="radio" id="tab3" name="tabs">
+<label for="tab3">Tab 3</label>
+
+<div class="tab-content" id="content1">
+  <h2>Content for Tab 1</h2>
+  <p>This is the content for the first tab.</p>
+</div>
+
+<div class="tab-content" id="content2">
+  <h2>Content for Tab 2</h2>
+  <p>This is the content for the second tab.</p>
+</div>
+
+<div class="tab-content" id="content3">
+  <h2>Content for Tab 3</h2>
+  <p>This is the content for the third tab.</p>
+</div>
+</section>
+ <style>
+
+/* Hide radio buttons */
+.tab-div {
+  width: 100%;
+}
+input[type="radio"] {
+  display: none;
+}
+
+/* Style labels as tabs */
+label {
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 0;
+  cursor: pointer;
+  background-color: #eee;
+  border: 1px solid #ccc;
+  border-bottom: none;
+  transition: background-color 0.3s ease;
+}
+
+/* Style active tab */
+  input[type="radio"]:checked + label {
+  background-color: #fff;
+  border-bottom: 1px solid #fff;
+  font-weight: bold;
+}
+
+/* Style content areas */
+.tab-content {
+  display: none;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-top: none;
+  background-color: #fff;
+}
+
+/* Show active content */
+#tab1:checked ~ #content1,
+#tab2:checked ~ #content2,
+#tab3:checked ~ #content3 {
+  display: block;
+}
+ </style>
+```

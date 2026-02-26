@@ -1,0 +1,51 @@
+---
+title: Johnny & Leslie Blog
+description: Our travel blog 
+date: 2023-07-21
+tags:
+  - Astro
+  - Tailwind CSS
+  - MDX
+---
+
+import { Tabs, TabItem, Badge, Icon, Aside } from '/src/components/mdx';
+import ProjectLink from '/src/components/ProjectLink.astro'
+
+<Aside type="tip" title='Host'>
+Deployed with <span><Badge text="Cloudflare Pages"  variant='note'/></span>
+</Aside>
+
+ <Tabs>
+     <TabItem label='Website'>
+       <ProjectLink
+        title="Johnny & Leslie's Blog"
+        href="https://www.johnnyleslie.com/"
+        description="https://www.johnnyleslie.com/"
+        topics={
+          [
+            "Astro",
+            "Tailwind",
+            "MDX",
+            "RSS",
+            "TinaCMS"
+          ]
+        }
+        target="_blank"/>
+     </TabItem>
+     <TabItem label="Repository">
+     <ProjectLink
+        title="johnnyleslie"
+        href="https://github.com/Konstantine1307/johnnyleslie-tina.git"
+        description="https://github.com/Konstantine1307/johnnyleslie-tina.git"
+        topics={
+          [
+            "Astro",
+            "Tailwind",
+            "MDX",
+            "RSS",
+            "TinaCMS"
+          ]
+        }
+        target="_blank"/>
+     </TabItem>
+   </Tabs>

@@ -1,0 +1,87 @@
+---
+interface Props {
+	id?: string;
+	defaultValue?: string;
+	class?: string;
+}
+
+const { id, defaultValue, class: className } = Astro.props;
+
+const unique = globalThis.crypto?.randomUUID?.() ?? Math.random().toString(36).slice(2);
+const tabsId = id ?? `tabs-${Astro.url.pathname.replace(/\W+/g, '-')}-${unique}`;
+const active = defaultValue;
+---
+
+<div class={['mdx-tabs', className].filter(Boolean).join(' ')} data-tabs-root={tabsId} data-default={active}>
+	<div class="mdx-tabs__list" role="tablist">
+	</div>
+	<div class="mdx-tabs__panels">
+		<slot />
+	</div>
+</div>
+
+<script define:vars={{ tabsId }}>
+	const root = document.querySelector(`[data-tabs-root="${tabsId}"]`);
+	if (root) {
+		const list = root.querySelector('.mdx-tabs__list');
+		const panelsRoot = root.querySelector('.mdx-tabs__panels');
+		if (list && panelsRoot) {
+			const nodes = Array.from(panelsRoot.children);
+			for (const node of nodes) {
+				if (node instanceof HTMLElement && node.classList.contains('mdx-tab')) list.appendChild(node);
+				else if (node instanceof HTMLElement && node.classList.contains('mdx-panel')) panelsRoot.appendChild(node);
+			}
+		}
+
+		const defaultValue = root.getAttribute('data-default');
+		const tabButtons = Array.from(root.querySelectorAll('[data-tab][role="tab"]'));
+		const panels = Array.from(root.querySelectorAll('[data-panel][role="tabpanel"]'));
+
+		function setActive(value) {
+			for (const btn of tabButtons) {
+				const isActive = btn.getAttribute('data-tab') === value;
+				btn.setAttribute('aria-selected', String(isActive));
+				btn.tabIndex = isActive ? 0 : -1;
+			}
+			for (const panel of panels) {
+				const isActive = panel.getAttribute('data-panel') === value;
+				panel.toggleAttribute('hidden', !isActive);
+			}
+		}
+
+		const first = tabButtons[0]?.getAttribute('data-tab');
+		setActive(defaultValue ?? first);
+
+		root.addEventListener('click', (e) => {
+			const target = e.target instanceof Element ? e.target.closest('[data-tab]') : null;
+			if (!target) return;
+			e.preventDefault();
+			const value = target.getAttribute('data-tab');
+			if (value) setActive(value);
+		});
+	}
+</script>
+
+<style>
+	.mdx-tabs {
+		border: 1px solid var(--sl-color-hairline, rgba(148, 163, 184, 0.35));
+		border-radius: 0.75rem;
+		overflow: hidden;
+		background: var(--sl-color-bg, transparent);
+		margin: 1rem 0;
+	}
+
+	.mdx-tabs__list {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.25rem;
+		row-gap: 1rem;
+		padding: 0.5rem;
+		border-bottom: 1px solid var(--sl-color-hairline, rgba(148, 163, 184, 0.35));
+		background: color-mix(in srgb, var(--sl-color-accent, #4f46e5) 6%, transparent);
+	}
+
+	.mdx-tabs__panels {
+		padding: 1rem;
+	}
+</style>

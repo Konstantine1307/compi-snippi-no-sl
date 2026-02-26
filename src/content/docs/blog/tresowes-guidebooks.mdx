@@ -1,0 +1,49 @@
+---
+title: Tresowes Guidebooks
+description: Welcome books for our guests
+date: 2023-07-24
+tags:
+  - Astro
+  - Tailwind CSS
+  - DaisyUI
+---
+
+import { Tabs, TabItem, Badge, Icon, Aside } from '/src/components/mdx';
+import ProjectLink from '/src/components/ProjectLink.astro'
+
+<Aside type="tip" title='Host'>
+Deployed with <span><Badge text="Cloudflare Pages"  variant='note'/></span>
+</Aside>
+
+ <Tabs>
+    <TabItem label='Website'>
+      <ProjectLink
+        title="The Barn Welcome Book"
+        href="https://the-barn.tgcottage.com/"
+        description="https://the-barn.tgcottage.com/"
+        target="_blank"/>
+    </TabItem>
+    <TabItem label="Repo">
+    <ProjectLink
+      title="barn-guidebook"
+      href="https://github.com/Konstantine1307/barn-guidebook.git"
+      description="https://github.com/Konstantine1307/barn-guidebook.git"
+        target="_blank"/>
+     </TabItem>
+   </Tabs>
+   <Tabs>
+     <TabItem label='Website'>
+       <ProjectLink
+        title="The Cottage Welcome Book"
+        href="https://the-cottage.tgcottage.com/"
+        description="https://the-cottage.tgcottage.com/"
+        target="_blank"/>
+     </TabItem>
+     <TabItem label="Repo">
+     <ProjectLink
+        title="cottage-guidebook"
+        href="https://github.com/Konstantine1307/cottage-guidebook.git"
+        description="https://github.com/Konstantine1307/cottage-guidebook.git"
+        target="_blank"/>
+     </TabItem>
+   </Tabs>

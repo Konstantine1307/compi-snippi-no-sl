@@ -1,0 +1,60 @@
+---
+interface Props {
+	label: string;
+	value?: string;
+	class?: string;
+	[key: string]: any;
+}
+
+const { label, value, class: className, ...rest } = Astro.props;
+
+const normalized = value ?? label.toLowerCase().replace(/\W+/g, '-');
+const tabId = `tab-${normalized}`;
+const panelId = `panel-${normalized}`;
+---
+
+<button
+	class={['mdx-tab', className].filter(Boolean).join(' ')}
+	data-tab={normalized}
+	role="tab"
+	id={tabId}
+	type="button"
+	aria-controls={panelId}
+	aria-selected="false"
+	tabindex={-1}
+	{...rest}
+>
+	{label}
+</button>
+
+<div class="mdx-panel" data-panel={normalized} role="tabpanel" id={panelId} aria-labelledby={tabId} hidden>
+	<slot />
+</div>
+
+<style>
+	.mdx-tab {
+		appearance: none;
+		border: 1px solid transparent;
+		background: color-mix(in srgb, var(--sl-color-accent, #4f46e5) 12%, transparent);
+		border-color: color-mix(in srgb, var(--sl-color-accent, #4f46e5) 18%, transparent);
+		padding: 0.35rem 3.65rem;
+		border-radius: 999px;
+		font-size: 0.9rem;
+		cursor: pointer;
+		color: var(--sl-color-text, #4f46e5);
+	}
+
+	
+
+	.mdx-tab[aria-selected='true'] {
+		background: color-mix(in srgb, var(--sl-color-accent, #4f46e5) 18%, transparent);
+		border-color: color-mix(in srgb, var(--sl-color-accent, #4f46e5) 28%, transparent);
+		color: var(--sl-color-accent, #4f46e5);
+		font-weight: 600;
+
+	}
+
+	.mdx-panel {
+		padding: 0;
+	}
+</style>

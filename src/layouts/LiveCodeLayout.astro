@@ -1,0 +1,56 @@
+---
+import { Tabs, TabItem } from '../components/mdx';
+---
+
+<div class='live-code-layout'>
+  <Tabs>
+    <TabItem label='Example'>
+      <div class='example-container flex flex-wrap not-content'>
+       
+          <slot name='example' />
+    
+      </div>
+    </TabItem>
+    <TabItem label='Code'>
+      <div class='code-container'>
+        <slot name='code' />
+      </div>
+    </TabItem>
+  </Tabs>
+</div>
+
+<style>
+  .live-code-layout {
+    display: flex;
+    flex-direction: column;
+  }
+  .example-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    align-items: center;
+    padding: 1.5rem 0;
+    background: var(--ec-frm-edBg, var(--astro-code-color-background));
+    border-style: solid;
+    border-width: var(--ec-brdWd, 1px);
+    border-color: var(--ec-brdCol, var(--sl-color-gray-5));
+    border-bottom: none;
+  }
+
+  .code-container {
+    padding: 1.5rem;
+    background: var(--ec-frm-edBg, var(--astro-code-color-background));
+    border-style: solid;
+    border-width: var(--ec-brdWd, 1px);
+    border-color: var(--ec-brdCol, var(--sl-color-gray-5));
+  }
+
+  /* Ensure images in live code examples respect their Tailwind size classes */
+  .example-container img[class*="size-"],
+  .example-container img[class*="w-"],
+  .example-container img[class*="h-"] {
+    max-width: none !important;
+    width: unset !important;
+    height: unset !important;
+  }
+</style>

@@ -1,0 +1,27 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<'h1'> {
+  text?: string;
+  className?: string;
+}
+
+
+const foregroundColor = 'rgb(157 23 77)';
+const backgroundColor = 'rgb(251 207 232) ';
+---
+
+<div class='not-content'>
+  <h1
+    class='not-content text-4xl sm:text-5xl md:text-7xl xl:text-7xl font-extralight hero-text-shadow'
+  >
+    <slot />
+  </h1>
+</div>
+
+<style define:vars={{ foregroundColor, backgroundColor }}>
+  h1 {
+    background-color: var(--backgroundColor);
+    color: var(--foregroundColor);
+  }
+</style>

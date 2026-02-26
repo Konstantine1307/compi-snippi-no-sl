@@ -1,0 +1,139 @@
+---
+title: Headings
+description: Headings with all the variants from h1 to h6
+---
+
+import { Tabs, TabItem } from '/src/components/mdx';
+import HeadingTW from '/src/components/HeadingTW.astro'
+
+
+## Astro - Heading levels
+    Responsive component for different heading levels, With Tailwind CSS
+### Props Interface
+    ###### Simplified to include only level for the heading level and classes for additional classes.
+### Conditional Rendering 
+    ###### Renders the appropriate heading tag (h1 to h6) based on the level prop.
+### Tailwind Classes 
+    ###### Uses Tailwind CSS classes for responsive typography:
+    - Base size: text-2xl, text-xl, text-lg, etc.
+    - Medium size (min-width: 640px): sm:text-3xl, sm:text-2xl, sm:text-xl, etc.
+    - Large size (min-width: 768px): md:text-4xl, md:text-3xl, md:text-2xl, etc.
+    - Font Weight: font-bold for bold text.
+
+    ```astro
+  ---
+  import HeadingTW from '/src/components/HeadingTW.astro'
+  ---
+
+    <HeadingTW level={1} classes='text-amber-400'> This is a responsive heading 1 </HeadingTW>
+  <HeadingTW level={2}> This is a responsive heading 2 </HeadingTW>
+  <HeadingTW level={3}> This is a responsive heading 3 </HeadingTW>
+  <HeadingTW level={4}> This is a responsive heading 3 </HeadingTW>
+  <HeadingTW level={5}> This is a responsive heading 3 </HeadingTW>
+  <HeadingTW level={6}> This is a responsive heading 3 </HeadingTW>
+    ```
+<Tabs >
+  <TabItem label="Rendered " icon="starlight">
+  <HeadingTW level={1} classes='text-amber-400'> This is a responsive heading 1 </HeadingTW>
+  <HeadingTW level={2}> This is a responsive heading 2 </HeadingTW>
+  <HeadingTW level={3}> This is a responsive heading 3 </HeadingTW>
+  <HeadingTW level={4}> This is a responsive heading 3 </HeadingTW>
+  <HeadingTW level={5}> This is a responsive heading 3 </HeadingTW>
+  <HeadingTW level={6}> This is a responsive heading 3 </HeadingTW>
+  </TabItem>
+  <TabItem label="Astro" icon="astro">
+  ```astro
+  ---
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<'h1'> {
+  level: 1 | 2 | 3 | 4 | 5 | 6;
+  classes?: string;
+}
+
+const { level = 1, classes, ...rest } = Astro.props;
+---
+
+<div class='not-content'>
+  {
+    level === 1 && (
+      <h1
+        class:list={[
+          classes,
+          'text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold',
+        ]}
+        {...rest}
+      >
+        <slot />
+      </h1>
+    )
+  }
+  {
+    level === 2 && (
+      <h2
+        class:list={[
+          classes,
+          'text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold',
+        ]}
+        {...rest}
+      >
+        <slot />
+      </h2>
+    )
+  }
+  {
+    level === 3 && (
+      <h3
+        class:list={[
+          classes,
+          'text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold',
+        ]}
+        {...rest}
+      >
+        <slot />
+      </h3>
+    )
+  }
+  {
+    level === 4 && (
+      <h4
+        class:list={[
+          classes,
+          'text-md sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold',
+        ]}
+        {...rest}
+      >
+        <slot />
+      </h4>
+    )
+  }
+  {
+    level === 5 && (
+      <h5
+        class:list={[
+          classes,
+          'text-sm sm:text-md md:text-lg lg:text-xl xl:text-2xl font-bold',
+        ]}
+        {...rest}
+      >
+        <slot />
+      </h5>
+    )
+  }
+  {
+    level === 6 && (
+      <h6
+        class:list={[
+          classes,
+          'text-xs sm:text-sm md:text-md lg:text-lg xl:text-xl font-bold',
+        ]}
+        {...rest}
+      >
+        <slot />
+      </h6>
+    )
+  }
+</div>
+```
+  </TabItem>
+</Tabs>

@@ -1,0 +1,77 @@
+---
+title: Sub menu on hover
+---
+
+## Sub menu on hover
+
+ Use a combination of opacity and visibility CSS properties, to make the hover appearance smooth (browsers cannot animate the display CSS property, yet). The visibility: hidden; is used to make our sub menu non-focusable until it becomes visible (until its parent element hovered).
+ 
+To prevent submenu from immediate disappear on hover out of menu, we should add a transition-delay to our sub-menu.
+
+``` html live
+<nav class="on-menu">
+  <ul>
+    <li><a href="#">Home</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#">Blog 🠋</a>
+      <ul>
+        <li><a href="#">News</a></li>
+        <li><a href="#">Interviews</a>
+        <li><a href="#">Travel</a></li>
+        <li><a href="#">Art</a></li>
+        <li><a href="#">Tech</a></li>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#">Contacts</a></li>
+  </ul>
+</nav>
+ <style>
+
+a {
+  transition: all 250ms cubic-bezier(.33,.65,.67,.81);
+}
+nav.on-menu {
+  background-color: #CCDDB7;
+  padding: 1em;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+nav > ul {
+  display: flex;
+  gap: 1em;
+}
+nav > ul > li {
+  position: relative;
+}
+nav > ul > li a {
+  text-decoration: none;
+  color: #6A5B6E;
+}
+nav > ul > li a:hover {
+  color: #A833B9;
+}
+
+nav > ul ul {
+  position: absolute;
+  background-color: #F0B7B3;
+  padding: 1em;
+  opacity: 0;
+  visibility: hidden;
+  translate: 0 25%;
+  transition: all 250ms cubic-bezier(.33,.65,.67,.81);
+  transition-delay: 300ms;
+}
+nav > ul > li:hover > ul {
+  opacity: 1;
+  visibility: visible;
+  translate: 0 0;
+}
+ </style>
+```

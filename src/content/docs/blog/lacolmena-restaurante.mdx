@@ -1,0 +1,47 @@
+---
+title: La Colmena Restaurante
+description: Our restaurante 
+date: 2023-07-21
+tags:
+  - Astro
+  - Tailwind CSS
+  - Internationalization
+---
+
+import { Tabs, TabItem, Badge, Icon, Aside } from '/src/components/mdx';
+import ProjectLink from '/src/components/ProjectLink.astro'
+
+<Aside type="tip" title='Host'>
+Deployed with <span><Badge text="Netlify"  variant='note'/></span>
+</Aside>
+
+ <Tabs>
+     <TabItem label='Website'>
+       <ProjectLink
+        title="La Colmena Restaurante"
+        href="https://www.lacolmenarestaurante.com/"
+        description="https://www.lacolmenarestaurante.com/"
+        topics={
+          [
+            "Astro",
+            "Tailwind",
+            "Internationalization"
+          ]
+        }
+        target="_blank"/>
+     </TabItem>
+     <TabItem label="Repository">
+     <ProjectLink
+        title="La Colmena Restaurante"
+        href="https://github.com/Konstantine1307/lacolmena"
+        description="https://github.com/Konstantine1307/lacolmena"
+        topics={
+          [
+            "Astro",
+            "Tailwind",
+            "Internationalization"
+          ]
+        }
+        target="_blank"/>
+     </TabItem>
+   </Tabs>

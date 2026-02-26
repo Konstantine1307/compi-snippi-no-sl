@@ -1,0 +1,40 @@
+---
+interface Props {
+	type?: 'note' | 'tip' | 'caution' | 'danger';
+	title?: string;
+}
+
+const { type = 'note', title } = Astro.props;
+---
+
+<aside class={`mdx-callout mdx-callout--${type}`}>
+	{title && <div class="mdx-callout__title">{title}</div>}
+	<div class="mdx-callout__body"><slot /></div>
+</aside>
+
+<style>
+	.mdx-callout {
+		border-radius: 0.75rem;
+		padding: 0.9rem 1rem;
+		border: 1px solid var(--sl-color-hairline, rgba(148, 163, 184, 0.35));
+		margin: 1rem 0;
+	}
+
+	.mdx-callout__title {
+		font-weight: 600;
+		margin-bottom: 0.25rem;
+	}
+
+	.mdx-callout--note {
+		background: color-mix(in srgb, #3b82f6 10%, transparent);
+	}
+	.mdx-callout--tip {
+		background: color-mix(in srgb, #22c55e 10%, transparent);
+	}
+	.mdx-callout--caution {
+		background: color-mix(in srgb, #f59e0b 12%, transparent);
+	}
+	.mdx-callout--danger {
+		background: color-mix(in srgb, #ef4444 10%, transparent);
+	}
+</style>

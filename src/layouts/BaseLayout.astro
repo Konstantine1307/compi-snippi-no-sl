@@ -1,0 +1,39 @@
+---
+import '../tailwind.css';
+
+interface Props {
+	title: string;
+	description?: string;
+	lang?: string;
+}
+
+const { title, description, lang = 'en' } = Astro.props;
+---
+
+<html lang={lang}>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+		{description && <meta name="description" content={description} />}
+		<slot name="head" />
+	</head>
+	<body>
+		<slot />
+	</body>
+</html>
+
+<style>
+	:global(html) {
+		background: rgba(255, 255, 255, 1);
+		color: rgba(15, 23, 42, 1);
+	}
+
+	:global([data-theme='dark'] html),
+	:global([data-theme='dark'] body) {
+		background: rgba(2, 6, 23, 1);
+		color: rgba(226, 232, 240, 1);
+	}
+</style>

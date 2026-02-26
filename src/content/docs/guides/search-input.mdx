@@ -1,0 +1,119 @@
+---
+title: Search Input
+description: How to create a search input with Tailwind CSS and JavaScript
+sidebar:
+  label: Search Input
+  order: 3
+---
+
+## Step-by-Step Explanation
+###  HTML Structure:
+
+- Create a section to wrap the entire component.
+- Add a div for styling and layout purposes.
+- Inside the div, include another div for the prose and headings.
+- Create a separate div to contain the search component (input field and list).
+
+### Search Input:
+
+- Add an input element with an ID of search-input for capturing the user's search query.
+- Style the input with Tailwind CSS classes for appearance and focus effects.
+
+### Filtered Items List:
+
+- Create an unordered list (ul) with an ID of items-list to display the filtered items.
+- This list will be dynamically populated using JavaScript.
+
+### JavaScript Functionality:
+
+- Wait for the DOM to load completely before executing the script.
+- Select the necessary elements: searchComponent, searchInput, and itemsList.
+- Define an array items containing the list of items to be filtered.
+- Implement the renderItems function to filter and display the list items based on the input value.
+- Add an event listener to the search input to trigger the renderItems function on every input event.
+- Call renderItems initially to display the full list when the page loads.
+By following these steps, you create a functional search component that filters a list of items based on user input, providing an interactive and dynamic user experience.
+
+```html live
+
+<section class="relative overflow-hidden">
+  <div class="w-full mx-auto 2xl:max-w-7xl flex flex-col justify-center py-24 relative p-8">
+    <div class="prose prose-text-black prose-sm prose-headings:font-normal prose-headings:text-xl mx-auto max-w-sm w-full">
+      <div>
+        <h1>Simple search</h1>
+        <p class="text-balance">Search for the words you are looking for.</p>
+      </div>
+    </div>
+    <div class="mt-6 border-t pt-12 max-w-sm mx-auto w-full">
+      <!-- Starts component -->
+
+      <div id="search-component">
+        <!-- Search Input -->
+        <input
+          type="text"
+          id="search-input"
+          placeholder="Search..."
+          class="w-full border-gray-300 rounded-md placeholder-gray-400 text-sm outline focus:outline-orange-500 py-1"
+        />
+
+        <!-- Filtered Items -->
+        <ul
+          id="items-list"
+          class="mt-12 text-sm space-y-2 dark:text-gray-300 text-gray-900 list-disc list-inside">
+          <!-- List items will be injected here by JavaScript -->
+        </ul>
+      </div>
+
+      <!-- Ends component -->
+    </div>
+  </div>
+</section>
+
+<script type="module">
+  document.addEventListener("DOMContentLoaded", function () {
+    // Select the search component, input field, and items list
+    const searchComponent = document.getElementById("search-component");
+    const searchInput = document.getElementById("search-input");
+    const itemsList = document.getElementById("items-list");
+
+    // Define an array of items to be filtered
+    const items = [
+      "Milano",
+      "Alicante",
+      "Switzerland",
+      "Bilbao",
+      "Åland Islands",
+      "Stockholm",
+      "Torrevieja",
+      "Minneapolis",
+    ];
+
+    // Function to render items based on the search filter
+    function renderItems(filter = "") {
+      // Clear the current list
+      itemsList.innerHTML = "";
+      
+      // Filter items based on the input value
+      const filteredItems = items.filter((item) =>
+        item.toLowerCase().includes(filter.toLowerCase())
+      );
+
+      // Create and append list items for each filtered item
+      filteredItems.forEach((item) => {
+        const li = document.createElement("li");
+        li.textContent = item;
+        itemsList.appendChild(li);
+      });
+    }
+
+    // Add event listener to the search input to update the list on input
+    searchInput.addEventListener("input", function () {
+      renderItems(searchInput.value);
+    });
+
+    // Initial render of the full list when the page loads
+    renderItems();
+  });
+</script>
+
+```

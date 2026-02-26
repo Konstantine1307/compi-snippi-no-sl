@@ -1,0 +1,35 @@
+---
+title: HTC 100 Club
+description: Our club website
+date: 2023-07-24
+tags:
+  - Astro
+  - Tailwind CSS
+  - Alpine JS
+  - Internationalization
+---
+
+import { Tabs, TabItem, Badge, Icon, Aside } from '/src/components/mdx';
+import ProjectLink from '/src/components/ProjectLink.astro'
+
+<Aside type="tip" title='Host'>
+Deployed with <span><Badge text="Netlify"  variant='note'/></span>
+</Aside>
+
+  <Tabs>
+    <TabItem label='Website'>
+      <ProjectLink
+        title="HTC 100 Club Wheel"
+        href="https://htc100club.netlify.app/"
+        description="https://htc100club.netlify.app/"
+        target="_blank"/>
+    </TabItem>
+    <TabItem label="Repo">
+    <ProjectLink
+      title="HTC 100 Club Wheel"
+      href="https://github.com/Konstantine1307/htc-100-club-nf"
+      description="https://github.com/Konstantine1307/htc-100-club-nf"
+        target="_blank"/>
+     </TabItem>
+   </Tabs>
+  

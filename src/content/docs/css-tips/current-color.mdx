@@ -1,0 +1,19 @@
+---
+title: Current Color property
+---
+
+### currentColor property
+
+
+An often overlooked trick is using the currentColor keyword. The magic here is it'll automatically inherit the current element's color value for other properties like border-color or background-color.
+
+This is an easy way to reduce the need to repeat color values in your CSS code and keeps it DRY (Don't Repeat Yourself).
+
+```css
+button {
+color: #f06;
+border: 2px solid currentColor;
+/* border will inherit the color value from the 'color' property */
+}
+```
+

@@ -1,0 +1,35 @@
+---
+title: Welcome to Compoguide
+description: Get started building your docs site with Starlight.
+template: splash
+hero:
+  title: |
+    Welcome to Compoguide!    
+  tagline: Here you will find some development guides, projects, and resources!
+  image:
+    file: ../../assets/my-logo.webp
+  actions:
+    - text: Start here
+      link: /guides/example/
+      icon: right-arrow
+      variant: primary
+---
+
+import { Card, CardGrid } from '/src/components/mdx';
+
+## Next steps
+
+<CardGrid stagger>
+	<Card title="Projects List" icon="laptop">
+	Visit the [projects](/blog) I have developed or I have followed with access to the demo url and the repo url for each repository.
+	</Card>
+	<Card title="Resources and Reference" icon="add-document">
+		A group of links to reach sites and [resources for developers](/reference/resources), such as hosting satisfies, isTemplateSpan, tutorials, manuals and general dev resources.
+	</Card>
+	<Card title="Components" icon="setting">
+		UI [Components](/ui-components/) for React, Astro, HTML, TailwindCSS and other frameworks.
+	</Card>
+	<Card title="Tips and Knowledge" icon="open-book">
+		[Tips and ideas](/css-tips/) for CSS, HTML, JavaScript and more
+	</Card>
+</CardGrid>

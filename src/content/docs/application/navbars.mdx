@@ -1,0 +1,755 @@
+---
+title: Navbars
+---
+
+```astro live
+
+<a
+  href="#content"
+  class="px-3 py-1 text-white sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 bg-zinc-900 rounded-md"
+  >Skip to content</a
+>
+<header
+  class="w-full border-b border-zinc-200 dark:border-zinc-800 bg-white/80 dark:bg-zinc-900/80 backdrop-blur supports-[backdrop-filter]:bg-white/60 supports-[backdrop-filter]:dark:bg-zinc-900/60"
+>
+  <div
+    x-data="{ open:false }"
+    class="px-6 mx-auto max-w-screen-xl md:px-10 lg:px-16"
+  >
+    <div class="flex items-center justify-between h-14 gap-5">
+      <a href="#_" class="inline-flex items-center gap-2">
+        <svg
+          class="text-black h-7 dark:text-white"
+          viewBox="0 0 2895 2895"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M1936.72 1316.69V1677.28L1700.54 1540.97V1452.99L1537.73 1359.06L1461.65 1315.07V1042.46L1536.29 1085.55L1773.92 1222.76L1936.72 1316.69Z"
+            stroke="#17181B"
+            stroke-width="18.0294"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          ></path>
+          <path
+            d="M988.017 1041.56V1315.79L913.191 1359.06L753.454 1451.19V1537.55L516.003 1674.75V1314.16L675.746 1221.85L911.752 1085.55L988.017 1041.56Z"
+            stroke="#17181B"
+            stroke-width="18.0294"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          ></path>
+          <path
+            d="M2408.73 1044.08L2096.46 1224.38L1936.72 1316.69L1773.92 1222.75L1536.29 1085.55L1461.65 1042.46L1621.57 950.15L1696.21 907.06L1933.65 769.856L2408.73 1044.08Z"
+            fill="#17181B"
+            stroke="#17181B"
+            stroke-width="18.0294"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          ></path>
+          <path
+            d="M1696.23 632.653L1383.96 812.947L1224.03 905.257L1061.23 811.324L748.96 631.03L1221.15 358.425L1696.23 632.653Z"
+            fill="#17181B"
+            stroke="#17181B"
+            stroke-width="18.0294"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          ></path>
+          <path
+            d="M988.023 1041.56L911.761 1085.55L675.754 1221.85L516.012 1314.16L353.21 1220.05L40.9387 1039.76L512.947 767.333L748.954 903.635L825.218 947.627L988.023 1041.56Z"
+            fill="#17181B"
+            stroke="#17181B"
+            stroke-width="18.0294"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          ></path>
+          <path
+            d="M2408.73 1044.08V1404.67L1936.72 1677.28V1316.69L2096.46 1224.38L2408.73 1044.08Z"
+            stroke="#17181B"
+            stroke-width="18.0294"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          ></path>
+          <path
+            d="M1700.55 1452.99V1813.58L1228.54 2086.18V1725.59L1388.28 1633.28L1624.47 1496.98L1700.55 1452.99Z"
+            stroke="#17181B"
+            stroke-width="18.0294"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          ></path>
+          <path
+            d="M1700.55 1452.99L1624.47 1496.98L1388.28 1633.28L1228.54 1725.59L1065.74 1631.48L828.288 1494.46L753.468 1451.19L913.207 1359.06L988.031 1315.79L1149.39 1222.75L1224.03 1179.66L1225.48 1178.76L1300.12 1221.85L1461.66 1315.07L1537.75 1359.06L1700.55 1452.99Z"
+            fill="#17181B"
+            stroke="#17181B"
+            stroke-width="18.0294"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          ></path>
+          <path
+            d="M1228.54 1725.59V2086.18L753.468 1811.77V1451.19L828.288 1494.46L1065.74 1631.48L1228.54 1725.59Z"
+            stroke="#17181B"
+            stroke-width="18.0294"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          ></path>
+          <path
+            d="M516.012 1314.16V1674.75L40.9387 1400.34V1039.76L353.21 1220.05L516.012 1314.16Z"
+            stroke="#17181B"
+            stroke-width="18.0294"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          ></path>
+          <path
+            d="M1696.22 632.651V907.059L1621.58 950.149L1461.66 1042.46V1128.64L1300.12 1221.85L1225.47 1178.76L1224.03 1179.66V905.256L1383.95 812.945L1696.22 632.651Z"
+            stroke="#17181B"
+            stroke-width="18.0294"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          ></path>
+          <path
+            d="M1224.03 905.257V1179.66L1149.39 1222.75L988.03 1129.54V1041.56L825.225 947.626L748.96 903.634V631.029L1061.23 811.323L1224.03 905.257Z"
+            stroke="#17181B"
+            stroke-width="18.0294"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          ></path>
+        </svg>
+        <span class="sr-only">Home</span>
+      </a>
+      <button
+        class="flex items-center justify-center text-center shadow-subtle font-medium duration-500 ease-in-out transition-colors focus:outline-2 focus:outline-offset-2 text-zinc-600 bg-zinc-50 outline outline-zinc-50 hover:bg-zinc-200 focus:outline-zinc-600 dark:text-zinc-100 dark:bg-zinc-800 dark:outline-zinc-800 dark:hover:bg-zinc-700 dark:focus:outline-zinc-700 size-8 p-0.5 text-xs rounded-md md:hidden"
+        @click="open=!open"
+        :aria-expanded="open"
+        aria-controls="nav-01m"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="icon icon-tabler-layout-grid size-3"
+          x-data="{ open: false }"
+        >
+          <!-- Paths for burger icon -->
+          <path
+            x-show="!open"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16"
+          ></path>
+          <!-- Paths for close icon (toggle icon) -->
+          <path
+            x-show="open"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M6 18L18 6M6 6l12 12"
+          ></path>
+        </svg>
+      </button>
+      <!-- Desktop navigation (always hidden on mobile) -->
+      <nav
+        id="nav-01"
+        aria-label="Primary"
+        class="items-center hidden md:flex gap-6"
+      >
+        <a
+          class="text-sm font-medium text-zinc-600 dark:text-zinc-300 dark:hover:text-white hover:text-zinc-900"
+          href="#_"
+        >
+          Features
+        </a>
+        <a
+          class="text-sm font-medium text-zinc-600 dark:text-zinc-300 dark:hover:text-white hover:text-zinc-900"
+          href="#_"
+        >
+          Pricing
+        </a>
+        <a
+          class="text-sm font-medium text-zinc-600 dark:text-zinc-300 dark:hover:text-white hover:text-zinc-900"
+          href="#_"
+        >
+          Docs
+        </a>
+        <span
+          aria-hidden
+          class="hidden w-px h-4 mx-1 bg-zinc-200 dark:bg-zinc-300 md:block"
+        ></span>
+        <a
+          class="text-sm font-medium text-zinc-600 dark:text-zinc-300 dark:hover:text-white hover:text-zinc-900"
+          href="#_"
+        >
+          Sign in
+        </a>
+        <button
+          class="relative flex items-center justify-center text-center font-medium transition-colors duration-200 ease-in-out select-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:z-10 rounded-md text-white bg-zinc-900 outline outline-zinc-900 hover:bg-zinc-950 focus-visible:outline-zinc-950 dark:bg-zinc-100 dark:text-zinc-900 dark:outline-zinc-100 dark:hover:bg-zinc-200 dark:focus-visible:outline-zinc-200 h-8 px-3.5 text-xs"
+        >
+          Get started
+        </button>
+      </nav>
+    </div>
+    <!-- Mobile menu -->
+    <nav
+      id="nav-01m"
+      x-cloak
+      x-show="open"
+      aria-label="Mobile"
+      class="pb-3 md:hidden grid grid-cols-1 gap-2"
+    >
+      <button
+        class="relative flex items-center justify-center text-center font-medium transition-colors duration-200 ease-in-out select-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:z-10 rounded-md text-zinc-600 bg-zinc-50 outline outline-zinc-100 hover:bg-zinc-200 focus-visible:outline-zinc-600 dark:text-zinc-100 dark:bg-zinc-800 dark:outline-zinc-800 dark:hover:bg-zinc-700 dark:focus-visible:outline-zinc-700 h-8 px-3.5 text-xs"
+      >
+        Features
+      </button>
+      <button
+        class="relative flex items-center justify-center text-center font-medium transition-colors duration-200 ease-in-out select-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:z-10 rounded-md text-zinc-600 bg-zinc-50 outline outline-zinc-100 hover:bg-zinc-200 focus-visible:outline-zinc-600 dark:text-zinc-100 dark:bg-zinc-800 dark:outline-zinc-800 dark:hover:bg-zinc-700 dark:focus-visible:outline-zinc-700 h-8 px-3.5 text-xs"
+      >
+        Pricing
+      </button>
+      <button
+        class="relative flex items-center justify-center text-center font-medium transition-colors duration-200 ease-in-out select-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:z-10 rounded-md text-zinc-600 bg-zinc-50 outline outline-zinc-100 hover:bg-zinc-200 focus-visible:outline-zinc-600 dark:text-zinc-100 dark:bg-zinc-800 dark:outline-zinc-800 dark:hover:bg-zinc-700 dark:focus-visible:outline-zinc-700 h-8 px-3.5 text-xs"
+      >
+        Docs
+      </button>
+      <button
+        class="relative flex items-center justify-center text-center font-medium transition-colors duration-200 ease-in-out select-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:z-10 rounded-md text-zinc-600 bg-zinc-50 outline outline-zinc-100 hover:bg-zinc-200 focus-visible:outline-zinc-600 dark:text-zinc-100 dark:bg-zinc-800 dark:outline-zinc-800 dark:hover:bg-zinc-700 dark:focus-visible:outline-zinc-700 h-8 px-3.5 text-xs"
+      >
+        Sign in
+      </button>
+      <button
+        class="relative flex items-center justify-center text-center font-medium transition-colors duration-200 ease-in-out select-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:z-10 rounded-md text-white bg-zinc-900 outline outline-zinc-900 hover:bg-zinc-950 focus-visible:outline-zinc-950 dark:bg-zinc-100 dark:text-zinc-900 dark:outline-zinc-100 dark:hover:bg-zinc-200 dark:focus-visible:outline-zinc-200 h-8 px-3.5 text-xs"
+      >
+        Get started
+      </button>
+    </nav>
+  </div>
+  <div id="content" class="sr-only"></div>
+</header>
+
+
+```
+
+
+```astro live
+
+<header
+  class="w-full bg-white border-b border-zinc-200 dark:border-zinc-800 dark:bg-zinc-900"
+>
+  <div
+    x-data="{ open:false, prod:false, res:false }"
+    class="px-6 mx-auto max-w-screen-xl md:px-10 lg:px-16"
+  >
+    <div class="flex items-center justify-between h-16 gap-3">
+      <a href="#_" class="inline-flex items-center gap-2"
+        ><svg
+          class="text-black h-7 dark:text-white"
+          viewBox="0 0 2895 2895"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M1936.72 1316.69V1677.28L1700.54 1540.97V1452.99L1537.73 1359.06L1461.65 1315.07V1042.46L1536.29 1085.55L1773.92 1222.76L1936.72 1316.69Z"
+            stroke="#17181B"
+            stroke-width="18.0294"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          ></path>
+          <path
+            d="M988.017 1041.56V1315.79L913.191 1359.06L753.454 1451.19V1537.55L516.003 1674.75V1314.16L675.746 1221.85L911.752 1085.55L988.017 1041.56Z"
+            stroke="#17181B"
+            stroke-width="18.0294"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          ></path>
+          <path
+            d="M2408.73 1044.08L2096.46 1224.38L1936.72 1316.69L1773.92 1222.75L1536.29 1085.55L1461.65 1042.46L1621.57 950.15L1696.21 907.06L1933.65 769.856L2408.73 1044.08Z"
+            fill="#17181B"
+            stroke="#17181B"
+            stroke-width="18.0294"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          ></path>
+          <path
+            d="M1696.23 632.653L1383.96 812.947L1224.03 905.257L1061.23 811.324L748.96 631.03L1221.15 358.425L1696.23 632.653Z"
+            fill="#17181B"
+            stroke="#17181B"
+            stroke-width="18.0294"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          ></path>
+          <path
+            d="M988.023 1041.56L911.761 1085.55L675.754 1221.85L516.012 1314.16L353.21 1220.05L40.9387 1039.76L512.947 767.333L748.954 903.635L825.218 947.627L988.023 1041.56Z"
+            fill="#17181B"
+            stroke="#17181B"
+            stroke-width="18.0294"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          ></path>
+          <path
+            d="M2408.73 1044.08V1404.67L1936.72 1677.28V1316.69L2096.46 1224.38L2408.73 1044.08Z"
+            stroke="#17181B"
+            stroke-width="18.0294"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          ></path>
+          <path
+            d="M1700.55 1452.99V1813.58L1228.54 2086.18V1725.59L1388.28 1633.28L1624.47 1496.98L1700.55 1452.99Z"
+            stroke="#17181B"
+            stroke-width="18.0294"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          ></path>
+          <path
+            d="M1700.55 1452.99L1624.47 1496.98L1388.28 1633.28L1228.54 1725.59L1065.74 1631.48L828.288 1494.46L753.468 1451.19L913.207 1359.06L988.031 1315.79L1149.39 1222.75L1224.03 1179.66L1225.48 1178.76L1300.12 1221.85L1461.66 1315.07L1537.75 1359.06L1700.55 1452.99Z"
+            fill="#17181B"
+            stroke="#17181B"
+            stroke-width="18.0294"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          ></path>
+          <path
+            d="M1228.54 1725.59V2086.18L753.468 1811.77V1451.19L828.288 1494.46L1065.74 1631.48L1228.54 1725.59Z"
+            stroke="#17181B"
+            stroke-width="18.0294"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          ></path>
+          <path
+            d="M516.012 1314.16V1674.75L40.9387 1400.34V1039.76L353.21 1220.05L516.012 1314.16Z"
+            stroke="#17181B"
+            stroke-width="18.0294"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          ></path>
+          <path
+            d="M1696.22 632.651V907.059L1621.58 950.149L1461.66 1042.46V1128.64L1300.12 1221.85L1225.47 1178.76L1224.03 1179.66V905.256L1383.95 812.945L1696.22 632.651Z"
+            stroke="#17181B"
+            stroke-width="18.0294"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          ></path>
+          <path
+            d="M1224.03 905.257V1179.66L1149.39 1222.75L988.03 1129.54V1041.56L825.225 947.626L748.96 903.634V631.029L1061.23 811.323L1224.03 905.257Z"
+            stroke="#17181B"
+            stroke-width="18.0294"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          ></path></svg
+        ><span class="sr-only">Home</span></a
+      >
+      <button
+        class="flex items-center justify-center text-center shadow-subtle font-medium duration-500 ease-in-out transition-colors focus:outline-2 focus:outline-offset-2 size-8 p-0.5 text-xs rounded-md md:hidden"
+        @click="open=!open"
+        :aria-expanded="open"
+        aria-controls="nav-03m"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="icon icon-tabler-layout-grid size-3"
+          x-data="{ open: false }"
+        >
+          <!-- Paths for burger icon -->
+          <path
+            x-show="!open"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16"
+          ></path>
+          <!-- Paths for close icon (toggle icon) -->
+          <path
+            x-show="open"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M6 18L18 6M6 6l12 12"
+          ></path>
+        </svg>
+      </button>
+      <!-- Desktop navigation (always hidden on mobile) -->
+      <nav
+        id="nav-03"
+        aria-label="Primary"
+        class="items-center hidden md:flex gap-1"
+      >
+        <div x-data="{open:false}" class="relative">
+          <button
+            class="relative flex items-center justify-center text-center font-medium transition-colors duration-200 ease-in-out select-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:z-10 rounded-md text-zinc-600 bg-transparent hover:bg-zinc-100 focus-visible:outline-zinc-300 dark:text-zinc-100 dark:bg-transparent dark:hover:bg-zinc-900 dark:focus-visible:outline-zinc-700 h-8 px-3.5 text-xs gap-2"
+            @click="open=!open"
+            @keydown.escape.window="open=false"
+            :aria-expanded="open"
+          >
+            Products
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="icon icon-tabler-chevron-down size-4 duration-300 ease-out transform"
+              slot="right-icon"
+              :class="open ? '-rotate-180' : ''"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+              <path d="M6 9l6 6l6 -6"></path>
+            </svg>
+          </button>
+          <div
+            x-show="open"
+            x-transition
+            @click.outside="open=false"
+            class="absolute left-0 z-30 flex flex-col p-4 mt-2 bg-white shadow-lg top-full w-80 dark:bg-zinc-800 rounded-xl outline outline-zinc-900/5 dark:outline-white/10 gap-4"
+          >
+            <a class="text-sm flex items-center w-full group gap-2" href="#_">
+              <div
+                class="flex items-center justify-center flex-none rounded-lg duration-300 size-11 bg-zinc-50 dark:bg-white/5 group-hover:bg-white dark:group-hover:bg-white/10"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="icon icon-tabler-arrow-refresh size-5 group-hover:text-zinc-500 dark:group-hover:text-zinc-400 text-zinc-500 dark:text-zinc-400"
+                  slot="left-icon"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                  <path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4"></path>
+                  <path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4"></path>
+                </svg>
+              </div>
+              <div>
+                <h3
+                  class="text-base flex items-center w-full font-medium text-zinc-900 dark:text-white group-hover:text-zinc-500 dark:group-hover:text-zinc-400 gap-2"
+                >
+                  Sync across devices
+                </h3>
+                <h3
+                  class="text-sm font-medium text-zinc-500 dark:text-zinc-400"
+                >
+                  Enable syncing across devices
+                </h3>
+              </div>
+            </a>
+            <a class="text-sm flex items-center w-full group gap-2" href="#_">
+              <div
+                class="flex items-center justify-center flex-none rounded-lg duration-300 size-11 bg-zinc-50 dark:bg-white/5 group-hover:bg-white dark:group-hover:bg-white/10"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="icon icon-tabler-external-file-dots size-5 group-hover:text-zinc-500 dark:group-hover:text-zinc-400 text-zinc-500 dark:text-zinc-400"
+                  slot="left-icon"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                  <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+                  <path
+                    d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"
+                  ></path>
+                  <path d="M9 14v.01"></path>
+                  <path d="M12 14v.01"></path>
+                  <path d="M15 14v.01"></path>
+                </svg>
+              </div>
+              <div>
+                <h3
+                  class="text-base flex items-center w-full font-medium text-zinc-900 dark:text-white group-hover:text-zinc-500 dark:group-hover:text-zinc-400 gap-2"
+                >
+                  Create custom documents
+                </h3>
+                <h3
+                  class="text-sm font-medium text-zinc-500 dark:text-zinc-400"
+                >
+                  Stlye your documents with ease
+                </h3>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div x-data="{open:false}" class="relative">
+          <button
+            class="relative flex items-center justify-center text-center font-medium transition-colors duration-200 ease-in-out select-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:z-10 rounded-md text-zinc-600 bg-transparent hover:bg-zinc-100 focus-visible:outline-zinc-300 dark:text-zinc-100 dark:bg-transparent dark:hover:bg-zinc-900 dark:focus-visible:outline-zinc-700 h-8 px-3.5 text-xs gap-2"
+            @click="open=!open"
+            @keydown.escape.window="open=false"
+            :aria-expanded="open"
+          >
+            Resources
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="icon icon-tabler-chevron-down size-4 duration-300 ease-out transform"
+              slot="right-icon"
+              :class="open ? '-rotate-180' : ''"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+              <path d="M6 9l6 6l6 -6"></path>
+            </svg>
+          </button>
+          <div
+            x-show="open"
+            x-transition
+            @click.outside="open=false"
+            class="absolute left-0 z-30 flex flex-col p-4 mt-2 bg-white shadow-lg top-full w-80 dark:bg-zinc-800 rounded-xl outline outline-zinc-900/5 dark:outline-white/10 gap-4"
+          >
+            <a class="text-sm flex items-center w-full group gap-2" href="#_">
+              <div
+                class="flex items-center justify-center flex-none rounded-lg duration-300 size-11 bg-zinc-50 dark:bg-white/5 group-hover:bg-white dark:group-hover:bg-white/10"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="icon icon-tabler-external-edit size-5 group-hover:text-zinc-500 dark:group-hover:text-zinc-400 text-zinc-500 dark:text-zinc-400"
+                  slot="left-icon"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                  <path
+                    d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1"
+                  ></path>
+                  <path
+                    d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z"
+                  ></path>
+                  <path d="M16 5l3 3"></path>
+                </svg>
+              </div>
+              <div>
+                <h3
+                  class="text-base flex items-center w-full font-medium text-zinc-900 dark:text-white group-hover:text-zinc-500 dark:group-hover:text-zinc-400 gap-2"
+                >
+                  Edit your files
+                </h3>
+                <h3
+                  class="text-sm font-medium text-zinc-500 dark:text-zinc-400"
+                >
+                  Endless possibilities
+                </h3>
+              </div>
+            </a>
+            <a class="text-sm flex items-center w-full group gap-2" href="#_">
+              <div
+                class="flex items-center justify-center flex-none rounded-lg duration-300 size-11 bg-zinc-50 dark:bg-white/5 group-hover:bg-white dark:group-hover:bg-white/10"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="icon icon-tabler-external-brain size-5 group-hover:text-zinc-500 dark:group-hover:text-zinc-400 text-zinc-500 dark:text-zinc-400"
+                  slot="left-icon"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                  <path
+                    d="M15.5 13a3.5 3.5 0 0 0 -3.5 3.5v1a3.5 3.5 0 0 0 7 0v-1.8"
+                  ></path>
+                  <path
+                    d="M8.5 13a3.5 3.5 0 0 1 3.5 3.5v1a3.5 3.5 0 0 1 -7 0v-1.8"
+                  ></path>
+                  <path d="M17.5 16a3.5 3.5 0 0 0 0 -7h-.5"></path>
+                  <path d="M19 9.3v-2.8a3.5 3.5 0 0 0 -7 0"></path>
+                  <path d="M6.5 16a3.5 3.5 0 0 1 0 -7h.5"></path>
+                  <path d="M5 9.3v-2.8a3.5 3.5 0 0 1 7 0v10"></path>
+                </svg>
+              </div>
+              <div>
+                <h3
+                  class="text-base flex items-center w-full font-medium text-zinc-900 dark:text-white group-hover:text-zinc-500 dark:group-hover:text-zinc-400 gap-2"
+                >
+                  Organize files
+                </h3>
+                <h3
+                  class="text-sm font-medium text-zinc-500 dark:text-zinc-400"
+                >
+                  Keep them all in one place
+                </h3>
+              </div>
+            </a>
+            <a class="text-sm flex items-center w-full group gap-2" href="#_">
+              <div
+                class="flex items-center justify-center flex-none rounded-lg duration-300 size-11 bg-zinc-50 dark:bg-white/5 group-hover:bg-white dark:group-hover:bg-white/10"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="icon icon-tabler-substack size-5 group-hover:text-zinc-500 dark:group-hover:text-zinc-400 text-zinc-500 dark:text-zinc-400"
+                  slot="left-icon"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                  <path d="M6 9l6 0"></path>
+                  <path d="M4 5l4 0"></path>
+                  <path d="M6 5v11a1 1 0 0 0 1 1h5"></path>
+                  <path
+                    d="M12 7m0 1a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1v2a1 1 0 0 1 -1 1h-6a1 1 0 0 1 -1 -1z"
+                  ></path>
+                  <path
+                    d="M12 15m0 1a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1v2a1 1 0 0 1 -1 1h-6a1 1 0 0 1 -1 -1z"
+                  ></path>
+                </svg>
+              </div>
+              <div>
+                <h3
+                  class="text-base flex items-center w-full font-medium text-zinc-900 dark:text-white group-hover:text-zinc-500 dark:group-hover:text-zinc-400 gap-2"
+                >
+                  Manage tasks and projects
+                </h3>
+                <h3
+                  class="text-sm font-medium text-zinc-500 dark:text-zinc-400"
+                >
+                  Make simple tasks a breeze
+                </h3>
+              </div>
+            </a>
+          </div>
+        </div>
+        <a
+          href="#_"
+          class="px-2 py-2 text-sm font-medium text-zinc-600 hover:text-blue-600 dark:text-zinc-300"
+          >Pricing</a
+        >
+        <span
+          aria-hidden
+          class="w-px h-4 mx-2 bg-zinc-200 dark:bg-zinc-700"
+        ></span>
+        <button
+          class="relative flex items-center justify-center text-center font-medium transition-colors duration-200 ease-in-out select-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:z-10 rounded-md text-zinc-600 bg-zinc-50 outline outline-zinc-100 hover:bg-zinc-200 focus-visible:outline-zinc-600 dark:text-zinc-100 dark:bg-zinc-800 dark:outline-zinc-800 dark:hover:bg-zinc-700 dark:focus-visible:outline-zinc-700 h-8 px-3.5 text-xs"
+        >
+          Sign in
+        </button>
+        <button
+          class="relative flex items-center justify-center text-center font-medium transition-colors duration-200 ease-in-out select-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:z-10 rounded-md text-white bg-zinc-900 outline outline-zinc-900 hover:bg-zinc-950 focus-visible:outline-zinc-950 dark:bg-zinc-100 dark:text-zinc-900 dark:outline-zinc-100 dark:hover:bg-zinc-200 dark:focus-visible:outline-zinc-200 h-8 px-3.5 text-xs"
+        >
+          Sign up
+        </button>
+      </nav>
+    </div>
+    <!-- Mobile menu -->
+    <div
+      id="nav-03m"
+      x-cloak
+      x-show="open"
+      class="pb-4 grid grid-cols-1 gap-2 md:hidden"
+    >
+      <details>
+        <summary
+          class="items-start justify-between w-full text-sm font-medium text-left select-none grid grid-cols-4 text-zinc-900 dark:text-white hover:text-zinc-500 dark:hover:text-zinc-400 focus:text-zinc-500 gap-4dark:focus:text-zinc-400"
+        >
+          <span class="col-span-3">Products</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="icon icon-tabler-plus size-4 ml-auto duration-300 ease-out transform group-open:-rotate-45 group-open:text-blue-600 dark:text-zinc-400"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M12 5l0 14"></path>
+            <path d="M5 12l14 0"></path>
+          </svg>
+        </summary>
+        <div
+          class="py-2 pt-2 text-sm text-zinc-500 dark:text-zinc-400 space-y-2"
+        >
+          <p class="text-sm font-medium text-zinc-500 dark:text-zinc-400">
+            Sync Across devices
+          </p>
+          <p class="text-sm font-medium text-zinc-500 dark:text-zinc-400">
+            Create custom documents
+          </p>
+        </div>
+      </details>
+      <details>
+        <summary
+          class="items-start justify-between w-full text-sm font-medium text-left select-none grid grid-cols-4 text-zinc-900 dark:text-white hover:text-zinc-500 dark:hover:text-zinc-400 focus:text-zinc-500 gap-4dark:focus:text-zinc-400"
+        >
+          <span class="col-span-3">Resources</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="icon icon-tabler-plus size-4 ml-auto duration-300 ease-out transform group-open:-rotate-45 group-open:text-blue-600 dark:text-zinc-400"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M12 5l0 14"></path>
+            <path d="M5 12l14 0"></path>
+          </svg>
+        </summary>
+        <div
+          class="py-2 pt-2 text-sm text-zinc-500 dark:text-zinc-400 space-y-2"
+        >
+          <p class="text-sm font-medium text-zinc-500 dark:text-zinc-400">
+            Edit your files
+          </p>
+          <p class="text-sm font-medium text-zinc-500 dark:text-zinc-400">
+            Organize files
+          </p>
+          <p class="text-sm font-medium text-zinc-500 dark:text-zinc-400">
+            Manage tasks and projects
+          </p>
+        </div>
+      </details>
+      <a
+        class="text-sm font-medium text-zinc-600 dark:text-zinc-300 dark:hover:text-white hover:text-zinc-900"
+        href="#_"
+      >
+        Pricing
+      </a>
+      <div class="flex items-center mt-8 gap-2">
+        <button
+          class="relative flex items-center justify-center text-center font-medium transition-colors duration-200 ease-in-out select-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:z-10 rounded-md text-zinc-600 bg-zinc-50 outline outline-zinc-100 hover:bg-zinc-200 focus-visible:outline-zinc-600 dark:text-zinc-100 dark:bg-zinc-800 dark:outline-zinc-800 dark:hover:bg-zinc-700 dark:focus-visible:outline-zinc-700 h-8 px-3.5 text-xs"
+        >
+          Sign in
+        </button>
+        <button
+          class="relative flex items-center justify-center text-center font-medium transition-colors duration-200 ease-in-out select-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:z-10 rounded-md text-white bg-zinc-900 outline outline-zinc-900 hover:bg-zinc-950 focus-visible:outline-zinc-950 dark:bg-zinc-100 dark:text-zinc-900 dark:outline-zinc-100 dark:hover:bg-zinc-200 dark:focus-visible:outline-zinc-200 h-8 px-3.5 text-xs"
+        >
+          Sign up
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+```
+

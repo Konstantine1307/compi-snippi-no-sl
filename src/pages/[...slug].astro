@@ -1,0 +1,176 @@
+---
+import { type CollectionEntry, getCollection, render } from 'astro:content';
+import DocsShell from '../layouts/DocsShell.astro';
+
+type SidebarItem = {
+	label: string;
+	href: string;
+	active?: boolean;
+};
+
+type SidebarGroup = {
+	label: string;
+	open?: boolean;
+	items: SidebarItem[];
+};
+
+type PrevNextItem = {
+	label: string;
+	href: string;
+};
+
+function toTitleCase(input: string): string {
+	return input
+		.split(/[-_]/g)
+		.filter(Boolean)
+		.map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+		.join(' ');
+}
+
+function buildSidebar(entries: CollectionEntry<'docs'>[], activeSlug: string): SidebarGroup[] {
+	const groups = new Map<
+		string,
+		{
+			label: string;
+			order?: number;
+			items: (SidebarItem & { order?: number })[];
+		}
+	>();
+
+	const groupIndexMeta = new Map<string, { label?: string; order?: number }>();
+	for (const entry of entries) {
+		const slug = (entry as any).slug ?? (entry as any).id?.replace(/\.(md|mdx)$/, '');
+		if (!slug) continue;
+		if (slug === 'index' || slug === '') continue;
+		const parts = slug.split('/');
+		let topLevel: string | undefined;
+		if (parts.length === 1) {
+			topLevel = parts[0];
+		} else if (parts.length === 2) {
+			const second = parts[1];
+			if (second !== 'index') continue;
+			topLevel = parts[0];
+		} else {
+			continue;
+		}
+		const sidebarData = (entry.data as any)?.sidebar;
+		const label = typeof sidebarData?.label === 'string' ? sidebarData.label : undefined;
+		const order = typeof sidebarData?.groupOrder === 'number' ? sidebarData.groupOrder : undefined;
+		if (topLevel) groupIndexMeta.set(topLevel, { label, order });
+	}
+
+	for (const entry of entries) {
+		const slug = (entry as any).slug ?? (entry as any).id?.replace(/\.(md|mdx)$/, '');
+		if (!slug) continue;
+		const isHome = slug === 'index' || slug === '';
+		const href = isHome ? '/' : `/${slug}`;
+		const topLevel = isHome ? 'home' : (slug.split('/')[0] ?? 'Docs');
+		const sidebarData = (entry.data as any)?.sidebar;
+		const indexMeta = groupIndexMeta.get(topLevel);
+		const itemOrder =
+			typeof sidebarData?.order === 'number'
+				? sidebarData.order
+				: typeof (entry.data as any)?.order === 'number'
+					? (entry.data as any).order
+					: undefined;
+
+		const groupLabel =
+			topLevel === 'home'
+				? 'Home'
+				: typeof indexMeta?.label === 'string'
+					? indexMeta.label
+					: typeof sidebarData?.label === 'string'
+						? sidebarData.label
+					: toTitleCase(topLevel);
+
+		const groupOrder = indexMeta?.order ?? (typeof sidebarData?.groupOrder === 'number' ? sidebarData.groupOrder : undefined);
+
+		const existing =
+			groups.get(topLevel) ??
+			({
+				label: groupLabel,
+				order: groupOrder,
+				items: [] as (SidebarItem & { order?: number })[],
+			});
+		if (typeof indexMeta?.label === 'string') existing.label = indexMeta.label;
+		else existing.label = existing.label || groupLabel;
+		existing.order = existing.order ?? groupOrder;
+		existing.items.push({
+			label: entry.data.title,
+			href,
+			active: slug === activeSlug,
+			order: itemOrder,
+		});
+		groups.set(topLevel, existing);
+	}
+
+	return Array.from(groups.entries())
+		.sort(([, a], [, b]) => {
+			// Keep home at the top if it exists
+			if (a.label === 'Home') return -1;
+			if (b.label === 'Home') return 1;
+			const ao = a.order ?? Number.POSITIVE_INFINITY;
+			const bo = b.order ?? Number.POSITIVE_INFINITY;
+			if (ao !== bo) return ao - bo;
+			return a.label.localeCompare(b.label);
+		})
+		.map(([, group]) => {
+			const items = group.items
+				.slice()
+				.sort((a, b) => {
+					const ao = a.order ?? Number.POSITIVE_INFINITY;
+					const bo = b.order ?? Number.POSITIVE_INFINITY;
+					if (ao !== bo) return ao - bo;
+					return a.label.localeCompare(b.label);
+				});
+			const open = items.some((i) => i.active);
+			return {
+				label: group.label,
+				open,
+				items,
+			} satisfies SidebarGroup;
+		});
+}
+
+export async function getStaticPaths() {
+	const docs = (await getCollection('docs')) as CollectionEntry<'docs'>[];
+	const filtered = docs.filter((doc) => {
+		const slug = ((doc as any).slug ?? '') as string;
+		return slug !== 'index' && slug !== '';
+	});
+	return filtered.map((doc) => ({
+		params: { slug: doc.slug },
+		props: doc,
+	}));
+}
+
+type Props = CollectionEntry<'docs'>;
+
+const post = Astro.props;
+const { Content, headings } = await render(post);
+
+const slugParam = Astro.params.slug;
+const activeSlug = Array.isArray(slugParam) ? slugParam.join('/') : (slugParam ?? '');
+
+const allDocs = (await getCollection('docs')) as CollectionEntry<'docs'>[];
+const sidebar = buildSidebar(allDocs, activeSlug);
+
+const flatSidebarItems = sidebar.flatMap((group) => group.items);
+const activeIndex = flatSidebarItems.findIndex((i) => i.active);
+const prevItem: PrevNextItem | undefined =
+	activeIndex > 0
+		? { label: flatSidebarItems[activeIndex - 1]!.label, href: flatSidebarItems[activeIndex - 1]!.href }
+		: undefined;
+const nextItem: PrevNextItem | undefined =
+	activeIndex >= 0 && activeIndex < flatSidebarItems.length - 1
+		? { label: flatSidebarItems[activeIndex + 1]!.label, href: flatSidebarItems[activeIndex + 1]!.href }
+		: undefined;
+
+const title = post.data.title;
+const description = post.data.description;
+---
+
+<DocsShell title={title} description={description} sidebar={sidebar} toc={headings} prev={prevItem} next={nextItem}>
+	<h1 class="mb-20">{title}</h1>
+	<Content />
+</DocsShell>

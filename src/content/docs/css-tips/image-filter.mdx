@@ -1,0 +1,46 @@
+---
+title: Image filter
+---
+
+## Transform Web Images
+
+### Blur
+
+
+A lesser-known CSS trick is using the *filter* property to apply graphic effects like blurring or color shifting to an image. The *filter* property is very powerful and versatile, allowing for a wide range of effects to be applied directly within your CSS code, without any need for external graphic editors.
+
+Here is an example of how you could use it to apply a grayscale effect:
+
+``` css
+img {
+    filter: grayscale(100%);
+}
+
+```
+
+In this case, the image will be completely converted to grayscale. You can adjust the percentage to control the intensity of the grayscale effect.
+
+This property can also be combined with other CSS effects to create more complex visual modifications. For example, you could combine blur and brightness for a dreamy effect:
+
+``` html live
+<div class="img-container">
+  <img src="/src/content/docs/css-tips/images/example.jpg" alt="demo image"/>
+</div>
+
+<style>
+
+.img-container {    
+    width: 100%;
+    aspect-ratio: 16 / 9 ;
+    overflow: hidden;
+}
+    
+.img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: blur(4px) brightness(150%) grayscale(90%);
+}
+</style>
+```
+

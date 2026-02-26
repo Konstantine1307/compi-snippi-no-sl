@@ -1,0 +1,28 @@
+---
+title: :is() function
+---
+
+### :is() function
+
+A lesser-known CSS trick is using the :is() pseudo-class function to simplify complex selector chains and reduce the size of your CSS code. For example, instead of writing repetitive CSS rules like this:
+
+```css
+.container h1,
+.container h2,
+.container h3,
+.container h4,
+.container h5,
+.container h6 {
+margin-bottom: 1rem;
+}
+```
+
+
+You can use the :is() function to achieve the same effect in a more concise way:
+
+```css
+.container :is(h1., h2, h3, h4, h5, h6) {
+margin-bottom: 1rem;
+}
+```
+

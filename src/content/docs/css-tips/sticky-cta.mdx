@@ -1,0 +1,239 @@
+---
+title: Sticky Call to action
+---
+
+## Sticky CTA
+
+
+We all know position: fixed; is useful for keeping elements in view at all times, but what if you only want to keep an element in view at certain parts of the page?
+
+In this demo, using position: sticky; + bottom: 0; the element only stays "fixed" in place while the parent container is in view. Perfect for a nice newsletter call-to-action.
+
+```html live
+
+<section>
+<article>
+     <header>
+       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 208c0 8.8-7.2 16-16 16s-16-7.2-16-16l0-176c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 272c0 1.5 0 3.1 .1 4.6L67.6 283c-16-15.2-41.3-14.6-56.6 1.4s-14.6 41.3 1.4 56.6L124.8 448c43.1 41.1 100.4 64 160 64l19.2 0c97.2 0 176-78.8 176-176l0-208c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 112c0 8.8-7.2 16-16 16s-16-7.2-16-16l0-176c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 176c0 8.8-7.2 16-16 16s-16-7.2-16-16l0-208z"/></svg>
+       <h1><span>5</span> Reasons Why CTAs are Essential for Site Owners</h1>
+    <div class="meta-data">
+      <span class="author">By <a href="https://design.dev?utm_source=5-reasons-why-demo">Design.Dev</a></span> — 
+      <time datetime="2024-08-22">08.22.2024</time>
+    </div>
+    
+  <p>Call-to-Actions (CTAs) are a crucial element of any website, especially for site owners looking to achieve specific goals, whether it be increasing newsletter subscriptions, driving sales, or encouraging user engagement. But why are CTAs so important, and how can they make a difference for your site?</p>
+  </header>
+  
+  <div id="reason-container"><div class="reason">
+  <h2>1.Guide User Behavior</h2>
+  <p>CTAs help guide users towards the actions you want them to take. Without clear CTAs, users might not know the next steps or may leave your site without taking any action at all. A well-placed CTA can direct users to subscribe, sign up, or make a purchase, which directly impacts your site's success.</p>
+    </div><div class="reason">
+  <h2>2.Enhance UX</h2>
+  <p>When used correctly, CTAs can enhance the overall user experience. They can break up long blocks of text, provide direction, and create a natural flow that helps users navigate your site more efficiently. A good CTA is not just about the text or design; it's about how it integrates with the user's journey.</p>
+  </div><div class="reason">
+  <h2>3.Measure Success</h2>
+  <p>CTAs also provide valuable metrics for site owners. By <a href="https://fullres.com?utm_source=5-reasons-why-demo">tracking the performance</a> of your CTAs, you can gain insights into what works and what doesn’t. This data is essential for optimizing your site and improving conversion rates. Over time, you can refine your CTAs to be more effective, driving better results.</p>
+  </div><div class="reason">
+  <h2>4.Build Trust</h2>
+  <p>Consistent and well-crafted CTAs can help build trust with your audience. When users see that your site provides clear, actionable steps, they are more likely to engage with your content and view you as an authority in your field. This trust can lead to long-term relationships and repeat visits to your site.</p>
+  </div><div class="reason">
+      <h2>5.Encourage Interaction</h2>
+  <p>Whether it’s a simple “Read More” link, a “Sign Up” button, or a “Contact Us” form, CTAs invite users to engage with your content, making your site more dynamic and interactive. This interaction is key to keeping users on your site longer and reducing bounce rates.</p>
+  </div><div class="sticky-cta reason">
+    <h2>Want More Tips?</h2>
+    <p>Join the desing.dev community of 15,000+ members and get web design and development tips Mon-Fri.</p>
+    <form action="https://design.dev/?utm_source=5-reasons-why-demo">
+      <input type="email" placeholder="type_your@email.here" name="email_address" required>
+      <button type="submit">Subscribe</button>
+    </form>
+  </div>
+    </div><!--end container-->
+</article>
+
+<!--FOOTER-->
+<div id="footer">&copy;2024 — <a href="https://design.dev/?utm_source=5-reasons-why-demo">Design.Dev</a></div>
+</section>
+
+<style>
+    section {
+  min-height: 100vh;
+  margin: 0;
+  font-family: 'courier new';
+  color: #333;
+
+  a {
+    color: #000;
+    text-underline-offset: 6px;
+    text-decoration-style: dotted;
+    text-shadow: 1px 0 0 rgba(0,0,0,.25);
+    transition: text-shadow .3s;
+
+    &:hover {
+      text-decoration-style: solid;
+      text-shadow: 0 0 3px rgba(0,0,0,.25);
+    }
+  }
+
+  article {
+    width: 850px;
+    margin: 3vw auto;
+    max-width: 100%;
+    font-size: 18px;
+    line-height: 1.35em;
+    box-sizing: border-box;
+    padding: clamp(30px,3vw,60px);
+
+    header {
+      width: calc(300px,50%,800px);
+      
+      svg {
+        display: block;
+        width: 50px;
+        height: 50px;
+        margin: 0 0 50px;
+        padding: 40px;
+        background: rgba(0,0,0,1);
+        fill: #fff;
+        border-radius: 50%;
+      }
+      
+      h1 {
+        font-size: clamp(30px,3vw,60px);
+        line-height: 1.15em;
+        font-weight: 700;
+        margin: clamp(30px,3vw,60px) 0 0;
+      }
+
+      .meta-data {
+        margin:10px auto 50px;
+        font-size: 16px;
+      }
+
+      p {
+        margin-bottom: 30px;
+      }
+    }
+
+    #reason-container {
+
+      .reason {
+        width: calc(50% - 15px);
+        display: inline-block;
+        border: 1px solid rgba(0,0,0,.15);
+        padding: 30px;
+        margin: 30px 0 0px 30px;
+        box-sizing: border-box;
+        border-radius: 8px;
+        vertical-align: top;
+        font-size: 18px;
+
+        &:nth-child(2n + 1) {
+          margin-left: 0;
+        }
+
+        h2 {
+          font-size: 18px;
+          margin: 0 auto 17.5px;
+        }
+
+        p {
+          margin-bottom: 0px;
+        }
+
+      }
+      
+      /*STICKY CTA*/
+      .sticky-cta {
+        position: sticky;
+        bottom: 0;
+        z-index: 2;
+        display: inline-block;
+        background: #e2f1ff;
+        padding: 30px;
+        box-sizing: border-box;
+        border-color: #4aa7f8 !important;
+        transition: width .5s, border .5s, transform .5s, border-radius .5s;
+
+        h2 {
+          color: #4aa7f8;
+          font-family: sans-serif;
+          font-weight: 600;
+          font-size: 85%;
+        }
+
+        p {
+          font-size: 16px;
+          margin: 0 0 17.5px;
+          color: #4aa7f8;
+          font-family: sans-serif;
+          font-weight: 300;
+
+          strong {
+            font-weight: 700;
+          }
+        }
+
+        /*EMAIL*/
+        input[type="email"] {
+          display:block; 
+          margin: 0 auto 17.5px; width: 250px; 
+          border: 1px solid #b0d9ff; 
+          padding: 0 20px;
+          border-radius:8px; 
+          line-height: 45px; 
+          box-sizing: border-box;
+          color: #4aa7f8;
+          font-size: 18px;
+          width: 100%;
+          text-align: center;
+
+          &:focus {
+            outline: 0px solid #4aa7f8;
+            border: 1px solid #4aa7f8; 
+          }
+        }
+
+        /*SUBSCRIBE NOW*/
+        button {
+          display: block; 
+          margin: 0 auto; 
+          padding: 0 20px; 
+          background-color: #4aa7f8; 
+          color: white; 
+          border: none; 
+          border-radius: 5px; 
+          cursor: pointer; 
+          width: 250px;
+          max-width: 100%;
+          line-height: 45px;
+          transition: background .3s;
+          font-size: 18px;
+          width: 100%;
+
+          &:hover {
+            background: #6ab9fe;
+          }
+
+          &:active {
+            background: #4aa7f8;
+          }
+        }
+      }
+      
+      @media only screen and (max-width: 800px) { 
+        .reason {
+          width: 100%;
+          margin: 30px 0;
+        }
+      }
+    }
+  }
+
+  #footer {
+    text-align: center;
+    line-height: 30px;
+    margin: 30px auto 90px; 
+  }
+}
+</style>
+```

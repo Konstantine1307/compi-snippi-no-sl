@@ -1,0 +1,148 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<'h1'> {
+  level: 1 | 2 | 3 | 4 | 5 | 6;
+  classes?: string;
+}
+
+const { level = 1, classes, ...rest } = Astro.props;
+---
+
+
+<div class="not-content">
+    {
+      level === 1 && (
+        <h1 class:list={[classes]} {...rest}>
+          <slot />
+        </h1>
+      )
+    }
+    {
+      level === 2 && (
+        <h2 class:list={[classes]} {...rest}>
+          <slot />
+        </h2>
+      )
+    }
+    {
+      level === 3 && (
+        <h3 class:list={[classes]} {...rest}>
+          <slot />
+        </h3>
+      )
+    }
+    {
+      level === 4 && (
+        <h4 class:list={[classes]} {...rest}>
+          <slot />
+        </h4>
+      )
+    }
+    {
+      level === 5 && (
+        <h5 class:list={[classes]} {...rest}>
+          <slot />
+        </h5>
+      )
+    }
+    {
+      level === 6 && (
+        <h6 class:list={[classes]} {...rest}>
+          <slot />
+        </h6>
+      )
+    }
+</div>
+
+<style>
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: bold;
+    margin: 0.5em 0;
+  }
+
+  .cool {
+    color: yellow;
+  }
+
+  h1 {
+    font-size: 2rem; /* default small size */
+  }
+
+  h2 {
+    font-size: 1.75rem; /* default small size */
+  }
+
+  h3 {
+    font-size: 1.5rem; /* default small size */
+  }
+
+  h4 {
+    font-size: 1.25rem; /* default small size */
+  }
+
+  h5 {
+    font-size: 1rem; /* default small size */
+  }
+
+  h6 {
+    font-size: 0.875rem; /* default small size */
+  }
+
+  @media (min-width: 600px) {
+    h1 {
+      font-size: 3rem; /* medium size */
+    }
+
+    h2 {
+      font-size: 2.5rem; /* medium size */
+    }
+
+    h3 {
+      font-size: 2rem; /* medium size */
+    }
+
+    h4 {
+      font-size: 1.75rem; /* medium size */
+    }
+
+    h5 {
+      font-size: 1.5rem; /* medium size */
+    }
+
+    h6 {
+      font-size: 1.25rem; /* medium size */
+    }
+  }
+
+  @media (min-width: 900px) {
+    h1 {
+      font-size: 4rem; /* large size */
+    }
+
+    h2 {
+      font-size: 3.5rem; /* large size */
+    }
+
+    h3 {
+      font-size: 3rem; /* large size */
+    }
+
+    h4 {
+      font-size: 2.5rem; /* large size */
+    }
+
+    h5 {
+      font-size: 2rem; /* large size */
+    }
+
+    h6 {
+      font-size: 1.75rem; /* large size */
+    }
+  }
+</style>

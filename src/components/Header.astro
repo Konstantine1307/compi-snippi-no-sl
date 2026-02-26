@@ -1,0 +1,287 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+import logoUrl from '../assets/my-logo.webp';
+
+const githubHref = 'https://github.com/Konstantine1307';
+---
+
+<header class="header">
+	<div class="header-content">
+		<div class="logo-and-title">
+			<a href="/" class="logo-link">
+				<img src={logoUrl.src} alt="Logo" class="logo-img" />
+				<span class="site-title">Docs &amp; Snippets</span>
+			</a>
+		</div>
+
+		<div class="search-bar">
+			<button type="button" class="search-input" data-search-open aria-label="Open search">
+				Search
+			</button>
+		</div>
+
+		<div class="header-actions">
+			<a href={githubHref} target="_blank" rel="noreferrer" class="action-link" aria-label="GitHub">
+				<svg
+					class="icon"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				>
+					<path
+						d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"
+					></path>
+				</svg>
+			</a>
+			<ThemeToggle />
+		</div>
+	</div>
+</header>
+
+<dialog class="search-modal" data-search-modal aria-label="Search">
+	<div class="search-modal__inner">
+		<div class="search-modal__header">
+			<div class="search-modal__title">Search</div>
+			<button type="button" class="search-modal__close" data-search-close aria-label="Close search">
+				×
+			</button>
+		</div>
+		<div class="search-modal__body">
+			<div id="pagefind-ui" class="pagefind-ui"></div>
+		</div>
+	</div>
+</dialog>
+
+<script define:vars={{ isDev: import.meta.env.DEV }}>
+	const openBtn = document.querySelector('[data-search-open]');
+	const modal = document.querySelector('[data-search-modal]');
+	const closeBtn = document.querySelector('[data-search-close]');
+	let initialized = false;
+
+	async function ensurePagefind() {
+		if (isDev) return;
+		if (initialized) return;
+
+		const cssHref = '/pagefind/pagefind-ui.css';
+		if (!document.querySelector(`link[href="${cssHref}"]`)) {
+			const link = document.createElement('link');
+			link.rel = 'stylesheet';
+			link.href = cssHref;
+			document.head.appendChild(link);
+		}
+
+		const jsSrc = '/pagefind/pagefind-ui.js';
+		if (!document.querySelector(`script[src="${jsSrc}"]`)) {
+			await new Promise((resolve, reject) => {
+				const script = document.createElement('script');
+				script.src = jsSrc;
+				script.async = true;
+				script.onload = resolve;
+				script.onerror = reject;
+				document.head.appendChild(script);
+			});
+		}
+
+		// @ts-ignore
+		const PagefindUI = window['PagefindUI'];
+		if (PagefindUI) {
+			PagefindUI && new PagefindUI({ element: '#pagefind-ui', showImages: false });
+		}
+		initialized = true;
+	}
+
+	if (openBtn && modal instanceof HTMLDialogElement) {
+		openBtn.addEventListener('click', async () => {
+			modal.showModal();
+			try {
+				await ensurePagefind();
+			} catch {
+				// Ignore. This will fail during `astro dev` because /pagefind doesn't exist.
+			}
+		});
+	}
+
+	if (closeBtn && modal instanceof HTMLDialogElement) {
+		closeBtn.addEventListener('click', () => modal.close());
+	}
+
+	if (modal instanceof HTMLDialogElement) {
+		modal.addEventListener('click', (e) => {
+			if (e.target === modal) modal.close();
+		});
+	}
+</script>
+
+<style>
+	.header {
+		border-bottom: 1px solid rgba(148, 163, 184, 0.35);
+		padding: 1rem 1.25rem;
+		background-color: rgba(248, 250, 252, 1);
+	}
+
+	:global([data-theme='dark']) .header {
+		background-color: rgba(15, 23, 42, 1);
+	}
+
+	.header-content {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		max-width: 1440px;
+		margin: 0 auto;
+		gap: 1.25rem;
+	}
+
+	.logo-link {
+		display: flex;
+		align-items: center;
+		text-decoration: none;
+		color: inherit;
+	}
+
+	.logo-img {
+		height: 2.25rem;
+		width: 2.25rem;
+	}
+
+	.site-title {
+		font-size: 1.6rem;
+		font-weight: 700;
+		color: rgb(79, 70, 229);
+		margin-left: 0.9rem;
+		white-space: nowrap;
+	}
+
+	.search-bar {
+		flex: 1;
+		display: flex;
+		justify-content: center;
+	}
+
+	.search-input {
+		width: 100%;
+		max-width: 420px;
+		padding: 0.55rem 0.9rem;
+		border-radius: 0.6rem;
+		border: 1px solid rgba(148, 163, 184, 0.35);
+		background-color: rgba(255, 255, 255, 1);
+		color: rgba(15, 23, 42, 1);
+		text-align: left;
+		cursor: text;
+	}
+
+	button.search-input {
+		appearance: none;
+		cursor: pointer;
+	}
+
+	:global([data-theme='dark']) .search-input {
+		background-color: rgba(30, 41, 59, 1);
+		color: rgba(226, 232, 240, 1);
+		border-color: rgba(148, 163, 184, 0.25);
+	}
+
+	.search-modal {
+		width: min(900px, calc(100vw - 2rem));
+		border: none;
+		padding: 0;
+		border-radius: 0.9rem;
+		background: transparent;
+	}
+
+	.search-modal::backdrop {
+		background: rgba(2, 6, 23, 0.6);
+	}
+
+	.search-modal__inner {
+		background: rgba(255, 255, 255, 1);
+		border: 1px solid rgba(148, 163, 184, 0.35);
+		border-radius: 0.9rem;
+		overflow: hidden;
+		box-shadow: 0 20px 60px rgba(2, 6, 23, 0.25);
+	}
+
+	:global([data-theme='dark']) .search-modal__inner {
+		background: rgba(2, 6, 23, 1);
+	}
+
+	.search-modal__header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 0.85rem 1rem;
+		border-bottom: 1px solid rgba(148, 163, 184, 0.35);
+	}
+
+	.search-modal__title {
+		font-weight: 700;
+	}
+
+	.search-modal__close {
+		appearance: none;
+		background: transparent;
+		border: 1px solid transparent;
+		width: 2rem;
+		height: 2rem;
+		border-radius: 0.6rem;
+		cursor: pointer;
+		font-size: 1.4rem;
+		line-height: 1;
+		color: inherit;
+	}
+
+	.search-modal__close:hover {
+		border-color: rgba(148, 163, 184, 0.35);
+		background: rgba(99, 102, 241, 0.08);
+	}
+
+	.search-modal__body {
+		padding: 0.75rem 1rem 1rem;
+	}
+
+	.header-actions {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+	}
+
+	.icon {
+		width: 1.4rem;
+		height: 1.4rem;
+	}
+
+	.action-link {
+		color: inherit;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 2.2rem;
+		height: 2.2rem;
+		border-radius: 0.6rem;
+		border: 1px solid transparent;
+	}
+
+	.action-link:hover {
+		border-color: rgba(148, 163, 184, 0.35);
+		background: rgba(99, 102, 241, 0.08);
+	}
+
+	@media (max-width: 768px) {
+		.header-content {
+			flex-wrap: wrap;
+		}
+
+		.search-bar {
+			order: 3;
+			flex: 1 1 100%;
+			justify-content: stretch;
+		}
+
+		.search-input {
+			max-width: none;
+		}
+	}
+</style>

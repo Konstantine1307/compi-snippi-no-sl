@@ -1,0 +1,113 @@
+---
+title: Flyout Menus
+description: Interactive flyout menus created with Alpine.js and Tailwind CSS
+---
+
+<style jsx>{`
+  a {
+    text-decoration: none !important;
+  }
+`}</style>
+
+## Flyout Menu Components
+
+A comprehensive collection of interactive flyout menus built with Alpine.js and Tailwind CSS. These components provide smart positioning, accessibility features, and beautiful animations for modern web applications.
+
+## Quick Start
+
+```astro
+---
+// Import the flyout component you need
+import SimpleFlyout from '/src/components/flyouts/SimpleFlyout.astro'
+---
+
+<!-- Use it in your component -->
+<SimpleFlyout open={false} />
+```
+
+## Available Variants
+
+### 🎯 [Simple Flyouts](/ui-components/simple-flyouts/)
+Basic flyout menus with icon and text items. Perfect for navigation menus and simple dropdowns.
+
+**Features:**
+- Icon + text layout
+- Smooth transitions
+- Click-outside-to-close
+- Keyboard navigation
+
+---
+
+### 📋 [Grid Flyouts](/ui-components/grid-flyouts/)
+Advanced flyouts with grid layouts and detailed descriptions. Ideal for feature-rich navigation.
+
+**Features:**
+- Multi-column grid layouts
+- Item descriptions
+- Call-to-action sections
+- Responsive design
+
+---
+
+### ⚡ [Productivity Flyouts](/ui-components/productivity-flyouts/)
+Feature-rich flyouts with productivity-focused items, badges, and enhanced interactivity.
+
+**Features:**
+- Productivity-focused content
+- Status badges and indicators
+- Enhanced hover states
+- Complex layouts
+
+---
+
+## Common Features
+
+All flyout components include:
+
+- **Smart positioning** - Automatically position below trigger button
+- **Teleport rendering** - Prevents clipping in overflow containers
+- **Accessibility** - Proper ARIA attributes and keyboard navigation
+- **Theme support** - Built-in dark mode compatibility
+- **Responsive design** - Works on all screen sizes
+- **Smooth animations** - Professional transitions and micro-interactions
+- **Click-outside-to-close** - Intuitive user experience
+- **Cross-browser compatible** - Works in all modern browsers
+
+## Usage Guidelines
+
+### Basic Implementation
+1. Choose the flyout variant that fits your needs
+2. Import the component
+3. Add it to your Astro component or MDX file
+4. Customize the content as needed
+
+### Customization Tips
+- Modify the `open` prop to control initial state
+- Update menu items and icons to match your content
+- Adjust styling through Tailwind classes
+- Add custom Alpine.js interactions if needed
+
+### Best Practices
+- Use semantic HTML for better accessibility
+- Test keyboard navigation (ESC to close, Tab to navigate)
+- Ensure sufficient color contrast for accessibility
+- Consider mobile touch interactions
+
+## Technical Details
+
+### Dependencies
+- **Alpine.js** - For interactivity and state management
+- **Tailwind CSS** - For styling and responsive design
+- **Astro** - Component framework
+
+### Browser Support
+- Chrome 60+
+- Firefox 60+
+- Safari 12+
+- Edge 79+
+
+### Performance
+- Minimal JavaScript footprint
+- CSS-only animations for smooth performance
+- Lazy loading support
+- Optimized for mobile devices

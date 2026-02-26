@@ -1,0 +1,35 @@
+---
+title: Tresowes Green Cottage
+description: My first solo project
+date: 2023-07-24
+tags:
+  - Astro
+  - Tailwind CSS
+  - Alpine JS
+  - Internationalization
+---
+
+import { Tabs, TabItem, Badge, Icon, Aside } from '/src/components/mdx';
+import ProjectLink from '/src/components/ProjectLink.astro'
+
+<Aside type="tip" title='Host'>
+Deployed with <span><Badge text="Cloudflare Pages"  variant='note'/></span>
+</Aside>
+
+  <Tabs>
+    <TabItem label='Website'>
+      <ProjectLink
+        title="Tresowes Green Cottage"
+        href="https://www.tresowesgreencottage.com/"
+        description="https://www.tresowesgreencottage.com/"
+        target="_blank"/>
+    </TabItem>
+    <TabItem label="Repo">
+    <ProjectLink
+      title="tresowes-green-cottage"
+      href="https://github.com/Konstantine1307/tresowes-green-website.git"
+      description="https://github.com/Konstantine1307/tresowes-green-website.git"
+        target="_blank"/>
+     </TabItem>
+   </Tabs>
+  

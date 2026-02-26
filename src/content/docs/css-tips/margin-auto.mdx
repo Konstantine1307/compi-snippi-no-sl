@@ -1,0 +1,67 @@
+---
+title: Margin auto
+---
+
+### Margin auto 
+
+To use `margin: auto;` to center a div inside a parent div with `display: flex;`, you can follow these steps:
+
+
+1. Set the parent div to `display: flex;` to create a flex container.
+
+```css
+.parent {
+  display: flex;
+}
+```
+
+2. Create a child div that you want to center inside the parent div.
+
+```css
+.child {
+  margin: auto;
+}
+```
+
+3. Place the child div inside the parent div in your HTML structure.
+
+```html
+<div class="parent">
+  <div class="child">
+    <!-- Content of the child div -->
+  </div>
+</div>
+```
+
+
+By setting `margin: auto;` on the child div, it will automatically distribute the available space evenly on all sides, pushing the div towards the center of the parent div.
+
+Here's an example to illustrate this:
+
+```html
+<div class="parent">
+  <div class="child">
+    This div is centered inside the parent div.
+  </div>
+</div>
+```
+
+
+```css
+.parent {
+  display: flex;
+  width: 400px;
+  height: 400px;
+  background-color: lightgray;
+}
+
+.child {
+  margin: auto;
+  background-color: gray;
+  padding: 20px;
+  color: white;
+}
+```
+
+
+In the example above, the child div will be centered both horizontally and vertically within the parent div due to the `margin: auto;` property.
