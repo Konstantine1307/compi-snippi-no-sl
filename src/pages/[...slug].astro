@@ -146,7 +146,7 @@ export async function getStaticPaths() {
 
 type Props = CollectionEntry<'docs'>;
 
-const post = Astro.props;
+const post = Astro.props as Props;
 const { Content, headings } = await render(post);
 
 const slugParam = Astro.params.slug;

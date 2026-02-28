@@ -21,6 +21,36 @@ const githubHref = 'https://github.com/Konstantine1307';
 		</div>
 
 		<div class="header-actions">
+			<button type="button" class="search-icon" data-search-open aria-label="Open search">
+				<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+					<circle cx="11" cy="11" r="7" />
+					<path d="M20 20l-3.5-3.5" />
+				</svg>
+				<span class="sr-only">Search</span>
+			</button>
+			<button
+				type="button"
+				class="sidebar-toggle"
+				data-sidebar-toggle
+				aria-controls="docs-sidebar"
+				aria-expanded="false"
+				aria-label="Toggle sidebar"
+			>
+				<svg
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					aria-hidden="true"
+				>
+					<path d="M4 6h16" />
+					<path d="M4 12h16" />
+					<path d="M4 18h16" />
+				</svg>
+				<span class="sr-only">Toggle sidebar</span>
+			</button>
 			<a href={githubHref} target="_blank" rel="noreferrer" class="action-link" aria-label="GitHub">
 				<svg
 					class="icon"
@@ -55,11 +85,25 @@ const githubHref = 'https://github.com/Konstantine1307';
 	</div>
 </dialog>
 
-<script define:vars={{ isDev: import.meta.env.DEV }}>
-	const openBtn = document.querySelector('[data-search-open]');
+<script is:inline define:vars={{ isDev: import.meta.env.DEV }}>
+	const openBtns = document.querySelectorAll('[data-search-open]');
 	const modal = document.querySelector('[data-search-modal]');
 	const closeBtn = document.querySelector('[data-search-close]');
+	const sidebarToggleBtn = document.querySelector('[data-sidebar-toggle]');
 	let initialized = false;
+
+	const syncSidebarToggleVisibility = () => {
+		if (!sidebarToggleBtn) return;
+		if (document.getElementById('docs-sidebar')) sidebarToggleBtn.removeAttribute('hidden');
+		else sidebarToggleBtn.setAttribute('hidden', '');
+	};
+
+	if (sidebarToggleBtn) {
+		sidebarToggleBtn.setAttribute('hidden', '');
+		syncSidebarToggleVisibility();
+		window.addEventListener('DOMContentLoaded', syncSidebarToggleVisibility);
+		document.addEventListener('astro:page-load', syncSidebarToggleVisibility);
+	}
 
 	async function ensurePagefind() {
 		if (isDev) return;
@@ -93,14 +137,16 @@ const githubHref = 'https://github.com/Konstantine1307';
 		initialized = true;
 	}
 
-	if (openBtn && modal instanceof HTMLDialogElement) {
-		openBtn.addEventListener('click', async () => {
-			modal.showModal();
-			try {
-				await ensurePagefind();
-			} catch {
-				// Ignore. This will fail during `astro dev` because /pagefind doesn't exist.
-			}
+	if (openBtns.length > 0 && modal instanceof HTMLDialogElement) {
+		openBtns.forEach((btn) => {
+			btn.addEventListener('click', async () => {
+				modal.showModal();
+				try {
+					await ensurePagefind();
+				} catch {
+					// Ignore. This will fail during `astro dev` because /pagefind doesn't exist.
+				}
+			});
 		});
 	}
 
@@ -115,14 +161,17 @@ const githubHref = 'https://github.com/Konstantine1307';
 	}
 </script>
 
-<style>
+<style is:global>
 	.header {
+		position: sticky;
+		top: 0;
+		z-index: 100;
 		border-bottom: 1px solid rgba(148, 163, 184, 0.35);
 		padding: 1rem 1.25rem;
 		background-color: rgba(248, 250, 252, 1);
 	}
 
-	:global([data-theme='dark']) .header {
+	[data-theme='dark'] .header {
 		background-color: rgba(15, 23, 42, 1);
 	}
 
@@ -161,6 +210,101 @@ const githubHref = 'https://github.com/Konstantine1307';
 		justify-content: center;
 	}
 
+	.search-icon {
+		display: none;
+		align-items: center;
+		justify-content: center;
+		width: 44px;
+		height: 44px;
+		border-radius: 9999px;
+		border: 1px solid rgba(148, 163, 184, 0.35);
+		background: rgba(255, 255, 255, 1);
+		box-shadow: 0 1px 2px rgba(2, 6, 23, 0.08);
+		color: inherit;
+		cursor: pointer;
+	}
+
+	.search-icon svg {
+		width: 20px;
+		height: 20px;
+	}
+
+	[data-theme='dark'] .search-icon {
+		background: rgba(2, 6, 23, 1);
+	}
+
+	.header-actions {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	.sidebar-toggle {
+		display: none;
+		align-items: center;
+		justify-content: center;
+		width: 44px;
+		height: 44px;
+		border-radius: 9999px;
+		border: 1px solid rgba(148, 163, 184, 0.35);
+		background: rgba(255, 255, 255, 1);
+		box-shadow: 0 1px 2px rgba(2, 6, 23, 0.08);
+		color: inherit;
+		cursor: pointer;
+	}
+
+	.sidebar-toggle svg {
+		width: 18px;
+		height: 18px;
+	}
+
+	[data-theme='dark'] .sidebar-toggle {
+		background: rgba(2, 6, 23, 1);
+	}
+
+	.sidebar-toggle:focus-visible {
+		outline: 2px solid rgba(99, 102, 241, 0.65);
+		outline-offset: 2px;
+	}
+
+	.sidebar-toggle[hidden] {
+		display: none;
+	}
+
+	.sr-only {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		white-space: nowrap;
+		border: 0;
+	}
+
+	@media (max-width: 768px) {
+		.header-content {
+			flex-direction: row;
+			align-items: center;
+			gap: 0.5rem;
+		}
+		.site-title {
+			font-size: 1rem;
+			margin-left: 0;
+		}
+		
+		.search-bar {
+			display: none;
+		}
+		.search-icon {
+			display: inline-flex;
+		}
+		.sidebar-toggle {
+			display: inline-flex;
+		}
+	}
+
 	.search-input {
 		width: 100%;
 		max-width: 420px;
@@ -178,7 +322,7 @@ const githubHref = 'https://github.com/Konstantine1307';
 		cursor: pointer;
 	}
 
-	:global([data-theme='dark']) .search-input {
+	[data-theme='dark'] .search-input {
 		background-color: rgba(30, 41, 59, 1);
 		color: rgba(226, 232, 240, 1);
 		border-color: rgba(148, 163, 184, 0.25);
@@ -204,7 +348,7 @@ const githubHref = 'https://github.com/Konstantine1307';
 		box-shadow: 0 20px 60px rgba(2, 6, 23, 0.25);
 	}
 
-	:global([data-theme='dark']) .search-modal__inner {
+	[data-theme='dark'] .search-modal__inner {
 		background: rgba(2, 6, 23, 1);
 	}
 
@@ -282,6 +426,17 @@ const githubHref = 'https://github.com/Konstantine1307';
 
 		.search-input {
 			max-width: none;
+		}
+
+		.action-link {
+			width: 1.6rem;
+			height: 1.6rem;
+			
+		}
+
+		.action-link .icon {
+			width: 1rem;
+			height: 1rem;
 		}
 	}
 </style>

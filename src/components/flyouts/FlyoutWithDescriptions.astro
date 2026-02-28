@@ -60,7 +60,7 @@
   <div
     x-show="open"
     x-transition.opacity
-    class="fixed inset-0 z-999"
+    class="fixed inset-0 z-(--z-overlay-backdrop)"
     @click="close"
     style="display: none"
   ></div>
@@ -69,7 +69,7 @@
     <div
       x-show="open"
       :style="style"
-      class="z-1000"
+      class="z-(--z-overlay-panel)"
       style="display: none"
       @keydown.escape.window="close"
       x-transition:enter="transition ease-out duration-200"

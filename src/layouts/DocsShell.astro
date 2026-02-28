@@ -39,8 +39,8 @@ const { title, description, sidebar, toc, prev, next } = Astro.props;
 <BaseLayout title={title} description={description}>
 	<Header />
 	<div class="docs-shell">
-			
-			<aside class="sidebar" aria-label="Sidebar">
+			<div class="sidebar-backdrop" data-sidebar-backdrop aria-hidden="true"></div>
+			<aside class="sidebar" id="docs-sidebar" aria-label="Sidebar">
 				<nav>
 					{sidebar.map((group) => (
 						<details class="sidebar-group" open={group.open}>
@@ -112,6 +112,96 @@ const { title, description, sidebar, toc, prev, next } = Astro.props;
 
 </BaseLayout>
 
+<script>
+	const root = document.documentElement;
+	const toggleBtn = document.querySelector('[data-sidebar-toggle]');
+	const backdrop = document.querySelector('[data-sidebar-backdrop]');
+	const sidebar = document.getElementById('docs-sidebar');
+	let lastFocused: HTMLElement | null = null;
+
+	const setExpandedTrue = () => {
+		if (toggleBtn) toggleBtn.setAttribute('aria-expanded', 'true');
+	};
+
+	const setExpandedFalse = () => {
+		if (toggleBtn) toggleBtn.setAttribute('aria-expanded', 'false');
+	};
+
+	const openSidebar = () => {
+		lastFocused = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+		root.classList.add('sidebar-open');
+		setExpandedTrue();
+		if (sidebar) {
+			const focusables = sidebar.querySelectorAll<HTMLElement>(
+				'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
+			);
+			const first = focusables[0] ?? null;
+			if (first) first.focus();
+		}
+	};
+
+	const closeSidebar = () => {
+		root.classList.remove('sidebar-open');
+		setExpandedFalse();
+		if (lastFocused) lastFocused.focus();
+	};
+
+	const toggleSidebar = () => {
+		if (root.classList.contains('sidebar-open')) closeSidebar();
+		else openSidebar();
+	};
+
+	if (toggleBtn) {
+		toggleBtn.addEventListener('click', (e) => {
+			e.preventDefault();
+			toggleSidebar();
+		});
+	}
+
+	if (backdrop) {
+		backdrop.addEventListener('click', (e) => {
+			e.preventDefault();
+			closeSidebar();
+		});
+	}
+
+	window.addEventListener('keydown', (e) => {
+		if (e.key === 'Tab' && root.classList.contains('sidebar-open') && sidebar) {
+			const focusables = sidebar.querySelectorAll<HTMLElement>(
+				'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
+			);
+			if (!focusables.length) return;
+			const first = focusables[0] ?? null;
+			const last = focusables[focusables.length - 1] ?? null;
+			const active = document.activeElement;
+			if (!first || !last) return;
+			if (e.shiftKey && active === first) {
+				e.preventDefault();
+				last.focus();
+			} else if (!e.shiftKey && active === last) {
+				e.preventDefault();
+				first.focus();
+			}
+			return;
+		}
+		if (e.key === 'Escape') closeSidebar();
+	});
+
+	if (sidebar) {
+		sidebar.addEventListener('click', (e) => {
+			if (!window.matchMedia('(max-width: 768px)').matches) return;
+			const target = e.target;
+			if (!(target instanceof Element)) return;
+			const link = target.closest('a');
+			if (link) closeSidebar();
+		});
+	}
+
+	window.addEventListener('resize', () => {
+		if (window.matchMedia('(min-width: 769px)').matches) closeSidebar();
+	});
+</script>
+
 <style>
 	.docs-shell {
 		display: grid;
@@ -120,6 +210,30 @@ const { title, description, sidebar, toc, prev, next } = Astro.props;
 		max-width: 1440px;
 		margin: 0 auto;
 		padding: 1.25rem;
+	}
+
+	.sidebar-toggle {
+		display: none;
+	}
+
+	.sidebar-backdrop {
+		display: none;
+	}
+
+	.sr-only {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		white-space: nowrap;
+		border: 0;
+	}
+
+	:global(.sidebar-open) body {
+		overflow: hidden;
 	}
 
 	.sidebar {
@@ -142,10 +256,10 @@ const { title, description, sidebar, toc, prev, next } = Astro.props;
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		font-size: 1.1rem;
+		font-size: 1rem;
 		font-weight: 700;
 		margin: 0;
-		padding: 0.4rem 0;
+		padding: 0.2rem 0;
 		cursor: pointer;
 		user-select: none;
 	}
@@ -174,7 +288,7 @@ const { title, description, sidebar, toc, prev, next } = Astro.props;
 		margin: 0;
 		padding: 0.25rem 0 0;
 		display: grid;
-		gap: 0.25rem;
+		font-size: 0.9rem;
 	}
 
 	.sidebar-link {
@@ -326,10 +440,44 @@ const { title, description, sidebar, toc, prev, next } = Astro.props;
 			grid-template-columns: 1fr;
 		}
 		.sidebar {
-			position: static;
-			max-height: none;
-			border-right: none;
-			padding-right: 0;
+			position: fixed;
+			inset: 0 auto 0 0;
+			width: min(320px, 85vw);
+			max-height: 100vh;
+			padding: 1rem;
+			border-right: 1px solid rgba(148, 163, 184, 0.35);
+			background: rgba(255, 255, 255, 1);
+			transform: translateX(-105%);
+			transition: transform 0.2s ease;
+			z-index: var(--z-overlay-panel);
+		}
+
+		:global([data-theme='dark']) .sidebar {
+			background: rgba(2, 6, 23, 1);
+		}
+
+		:global(.sidebar-open) .sidebar {
+			transform: translateX(0);
+		}
+
+		.sidebar-toggle {
+			display: inline-flex;
+		}
+
+		.sidebar-backdrop {
+			display: block;
+			position: fixed;
+			inset: 0;
+			background: rgba(2, 6, 23, 0.35);
+			opacity: 0;
+			pointer-events: none;
+			transition: opacity 0.2s ease;
+			z-index: var(--z-overlay-backdrop);
+		}
+
+		:global(.sidebar-open) .sidebar-backdrop {
+			opacity: 1;
+			pointer-events: auto;
 		}
 		.toc {
 			display: none;

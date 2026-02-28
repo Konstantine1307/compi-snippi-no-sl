@@ -20,7 +20,7 @@ const active = defaultValue;
 	</div>
 </div>
 
-<script define:vars={{ tabsId }}>
+<script is:inline define:vars={{ tabsId }}>
 	const root = document.querySelector(`[data-tabs-root="${tabsId}"]`);
 	if (root) {
 		const list = root.querySelector('.mdx-tabs__list');

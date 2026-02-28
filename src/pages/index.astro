@@ -5,25 +5,6 @@ import HomeShell from '../layouts/HomeShell.astro';
 import HomeHero from '../components/HomeHero.astro';
 import type { CollectionEntry } from 'astro:content';
 
-type SidebarItem = {
-	label: string;
-	href: string;
-	active?: boolean;
-};
-
-type SidebarGroup = {
-	label: string;
-	items: SidebarItem[];
-};
-
-function toTitleCase(input: string): string {
-	return input
-		.split(/[-_]/g)
-		.filter(Boolean)
-		.map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-		.join(' ');
-}
-
 const allDocs = (await getCollection('docs')) as CollectionEntry<'docs'>[];
 
 const homeEntry = allDocs.find((e) => (e as any).slug === 'index' || (e as any).id?.endsWith('index.mdx') || (e as any).id?.endsWith('index.md'));
@@ -31,7 +12,7 @@ if (!homeEntry) {
 	throw new Error('Missing docs home entry (expected src/content/docs/index.mdx).');
 }
 
-const { Content, headings } = await render(homeEntry);
+const { Content } = await render(homeEntry);
 
 const title = homeEntry.data.title;
 const description = homeEntry.data.description;

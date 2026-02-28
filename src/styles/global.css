@@ -1,6 +1,6 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
 /*
 Add additional Tailwind styles to this file, for example with @layer:
@@ -64,6 +64,9 @@ https://tailwindcss.com/docs/adding-custom-styles#using-css-and-layer
 	--sl-color-gray-5: rgba(148, 163, 184, 0.35);
 	--sl-color-gray-6: rgba(241, 245, 249, 1);
 	--sl-color-gray-7: rgba(226, 232, 240, 1);
+
+	--z-overlay-backdrop: 999;
+	--z-overlay-panel: 1000;
   }
 
 	:root[data-theme='dark'] {
@@ -82,7 +85,19 @@ https://tailwindcss.com/docs/adding-custom-styles#using-css-and-layer
 		--sl-color-gray-5: rgba(148, 163, 184, 0.25);
 		--sl-color-gray-6: rgba(30, 41, 59, 1);
 		--sl-color-gray-7: rgba(15, 23, 42, 1);
+
+		--z-overlay-backdrop: 999;
+		--z-overlay-panel: 1000;
   }
+
+	a {
+		color: var(--sl-color-text-accent);
+		text-decoration: none;
+	}
+
+	a:hover {
+		text-decoration: underline;
+	}
 }
 
 
@@ -134,15 +149,6 @@ h6 {
 /* Paragraphs and Text */
 p {
   margin-bottom: var(--sl-space-md);
-}
-
-a {
-  color: var(--sl-color-text-accent);
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
 }
 
 /* Code */
