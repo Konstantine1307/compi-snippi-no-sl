@@ -1,15 +1,16 @@
 ---
-import { getCollection } from 'astro:content';
-import { render } from 'astro:content';
+import { getCollection, getEntry, render } from 'astro:content';
 import HomeShell from '../layouts/HomeShell.astro';
 import HomeHero from '../components/HomeHero.astro';
 import type { CollectionEntry } from 'astro:content';
 
 const allDocs = (await getCollection('docs')) as CollectionEntry<'docs'>[];
 
-const homeEntry = allDocs.find((e) => (e as any).slug === 'index' || (e as any).id?.endsWith('index.mdx') || (e as any).id?.endsWith('index.md'));
+const homeEntry = await getEntry('docs', 'index');
 if (!homeEntry) {
-	throw new Error('Missing docs home entry (expected src/content/docs/index.mdx).');
+  throw new Error(
+    'Missing docs home entry (expected src/content/docs/index.mdx).',
+  );
 }
 
 const { Content } = await render(homeEntry);
@@ -20,6 +21,6 @@ const hero = (homeEntry.data as any).hero;
 ---
 
 <HomeShell title={title} description={description}>
-	<HomeHero hero={hero} />
-	<Content />
+  <HomeHero hero={hero} />
+  <Content />
 </HomeShell>

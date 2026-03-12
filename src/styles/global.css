@@ -90,6 +90,12 @@ https://tailwindcss.com/docs/adding-custom-styles#using-css-and-layer
 		--z-overlay-panel: 1000;
   }
 
+  body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
 	a {
 		color: var(--sl-color-text-accent);
 		text-decoration: none;
